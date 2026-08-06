@@ -1,0 +1,3428 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b5a37">
+  <title>CF Used · Una temporada v0.19</title>
+  <style>
+    :root {
+      --g: #0b5a37;
+      --g2: #147a4a;
+      --y: #f5d90a;
+      --paper: #fffdf0;
+      --ink: #142019;
+      --muted: #68736c;
+      --red: #bd2c2c;
+      --shadow: 0 20px 55px rgba(2, 38, 23, .28)
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 10% 0%, rgba(245, 217, 10, .3), transparent 32%), linear-gradient(145deg, #063522, #147a4a);
+      color: var(--ink)
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px
+    }
+
+    button,
+    input,
+    select {
+      font: inherit
+    }
+
+    .app {
+      width: min(100%, 510px);
+      min-height: 760px;
+      background: var(--paper);
+      border: 5px solid var(--y);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative
+    }
+
+    .top {
+      background: var(--g);
+      color: white;
+      padding: 13px 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 4px solid var(--y)
+    }
+
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 950
+    }
+
+    .crest {
+      width: 42px;
+      height: 50px;
+      background: var(--y);
+      color: var(--g);
+      clip-path: polygon(50% 0, 92% 15%, 86% 77%, 50% 100%, 14% 77%, 8% 15%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 12px;
+      line-height: .9
+    }
+
+    .sub {
+      font-size: 11px;
+      opacity: .8;
+      text-transform: uppercase;
+      letter-spacing: .08em
+    }
+
+    .playerTag {
+      font-size: 12px;
+      font-weight: 900
+    }
+
+    .topActions {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .soundBtn {
+      width: 42px;
+      height: 42px;
+      border: 2px solid rgba(255, 255, 255, .55);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .12);
+      color: white;
+      font-size: 20px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: none;
+      padding: 0
+    }
+
+    .soundBtn:active {
+      transform: scale(.94)
+    }
+
+    .soundBtn.off {
+      opacity: .65
+    }
+
+    .track {
+      height: 8px;
+      background: #dce6dd
+    }
+
+    .track>div {
+      height: 100%;
+      background: var(--y);
+      width: 0;
+      transition: .3s
+    }
+
+    .liveStats {
+      display: none;
+      grid-template-columns: repeat(5, minmax(62px, 1fr));
+      gap: 1px;
+      background: #c9d5cc;
+      border-bottom: 1px solid #b9c7bc;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .liveStats::-webkit-scrollbar {
+      display: none
+    }
+
+    .liveStats.show {
+      display: grid
+    }
+
+    .liveStat {
+      background: #f5f8f5;
+      text-align: center;
+      padding: 8px 3px 7px
+    }
+
+    .liveStat b {
+      display: block;
+      color: var(--g);
+      font-size: 17px;
+      line-height: 1
+    }
+
+    .liveStat span {
+      display: block;
+      color: #67736a;
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-top: 4px;
+      letter-spacing: .02em
+    }
+
+    .liveStat.bump {
+      animation: bump .35s ease;
+      background: #fff8b8
+    }
+
+    @keyframes bump {
+      50% {
+        transform: scale(1.08)
+      }
+    }
+
+    main {
+      padding: 21px
+    }
+
+    .screen {
+      display: none;
+      animation: in .25s ease
+    }
+
+    .screen.active {
+      display: block
+    }
+
+    @keyframes in {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0
+    }
+
+    .hero {
+      text-align: center;
+      padding: 18px 2px
+    }
+
+    .hero h1 {
+      font-size: 43px;
+      line-height: .93;
+      text-transform: uppercase;
+      color: var(--g);
+      letter-spacing: -.05em;
+      margin-bottom: 13px
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--g2)
+    }
+
+    .tag {
+      font-size: 17px;
+      line-height: 1.45;
+      color: var(--muted)
+    }
+
+    .pitch {
+      height: 145px;
+      border: 4px solid white;
+      border-radius: 15px;
+      margin: 22px 0;
+      background: linear-gradient(90deg, transparent 49.3%, white 49.3%, white 50.7%, transparent 50.7%), repeating-linear-gradient(90deg, #147a4a 0 42px, #1d8e59 42px 84px);
+      position: relative
+    }
+
+    .pitch:before {
+      content: "";
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      border: 3px solid white;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .pitch:after {
+      content: "⚽";
+      font-size: 55px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 15px 17px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow: 0 7px 0 rgba(0, 0, 0, .15);
+      transition: .15s
+    }
+
+    .btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 3px 0 rgba(0, 0, 0, .15)
+    }
+
+    .primary {
+      background: var(--y);
+      color: #17351f
+    }
+
+    .secondary {
+      background: var(--g2);
+      color: white
+    }
+
+    .ghost {
+      background: #e6ede7;
+      color: var(--g);
+      box-shadow: none
+    }
+
+    .field {
+      margin-bottom: 14px
+    }
+
+    .field label {
+      display: block;
+      font-weight: 900;
+      color: var(--g);
+      margin-bottom: 6px
+    }
+
+    .role-note {
+      background: #edf5ee;
+      border: 2px solid #b8ccb9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 900;
+      color: var(--g)
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 2px solid #cbd5cd;
+      border-radius: 12px;
+      background: white;
+      outline: none
+    }
+
+    .traits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin: 8px 0 20px
+    }
+
+    .trait {
+      padding: 12px;
+      border: 2px solid #ccd5ce;
+      border-radius: 13px;
+      background: white;
+      text-align: left;
+      font-weight: 850
+    }
+
+    .trait.selected {
+      border-color: var(--g);
+      background: #eaf5ee;
+      box-shadow: inset 0 0 0 2px var(--y)
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 950;
+      color: var(--g2);
+      margin-bottom: 11px
+    }
+
+    .card {
+      background: white;
+      border: 3px solid var(--g);
+      border-radius: 21px;
+      padding: 21px;
+      min-height: 290px;
+      box-shadow: 8px 8px 0 var(--y);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 21px
+    }
+
+    .emoji {
+      font-size: 58px
+    }
+
+    .card h2 {
+      font-size: 26px;
+      color: var(--g);
+      margin: 9px 0
+    }
+
+    .card p {
+      font-size: 18px;
+      line-height: 1.48;
+      color: #36463b;
+      margin-bottom: 0;
+      white-space: pre-line
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px
+    }
+
+    .choice {
+      border: 2px solid #d1d9d2;
+      border-radius: 13px;
+      background: white;
+      padding: 14px;
+      text-align: left;
+      font-weight: 850;
+      cursor: pointer
+    }
+
+    .choice:hover {
+      border-color: var(--g2);
+      background: #f1faf4;
+      transform: translateY(-1px)
+    }
+
+    .result {
+      background: var(--g);
+      color: white;
+      border: 4px solid var(--y);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center
+    }
+
+    .result .emoji {
+      font-size: 62px
+    }
+
+    .result h2 {
+      color: var(--y);
+      font-size: 27px;
+      margin: 7px 0
+    }
+
+    .result p {
+      font-size: 17px;
+      line-height: 1.5;
+      color: #eef7f0;
+      white-space: pre-line
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin: 16px 0
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, .13);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 850
+    }
+
+    .phase {
+      background: var(--g);
+      color: white;
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+      border: 4px solid var(--y)
+    }
+
+    .phase .cup {
+      font-size: 72px
+    }
+
+    .phase h2 {
+      font-size: 35px;
+      color: var(--y);
+      margin: 8px 0
+    }
+
+    .phase p {
+      line-height: 1.5
+    }
+
+    .paper {
+      background: #f6edce;
+      border: 3px solid #27271e;
+      padding: 17px;
+      box-shadow: 10px 10px 0 var(--y);
+      transform: rotate(-.4deg);
+      margin-bottom: 22px
+    }
+
+    .mast {
+      font: 950 35px Georgia, serif;
+      text-align: center;
+      border-top: 6px solid #27271e;
+      border-bottom: 3px solid #27271e;
+      padding: 7px
+    }
+
+    .date {
+      text-align: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 5px;
+      border-bottom: 1px solid #444
+    }
+
+    .headline {
+      font: 950 35px/.96 Georgia, serif;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 18px 0 9px
+    }
+
+    .deck {
+      text-align: center;
+      font: italic 16px Georgia, serif;
+      margin-bottom: 14px
+    }
+
+    .paperKicker {
+      text-align: center;
+      font: 900 11px Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #31533c;
+      margin: 8px 0
+    }
+
+    .leadStory {
+      font: 15px/1.48 Georgia, serif;
+      border-top: 2px solid #333;
+      border-bottom: 1px solid #777;
+      padding: 12px 2px;
+      margin-bottom: 12px
+    }
+
+    .leadStory:first-letter {
+      float: left;
+      font: 950 43px/.82 Georgia, serif;
+      padding-right: 6px;
+      color: var(--g)
+    }
+
+    .newsGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0
+    }
+
+    .newsItem {
+      border-top: 3px solid #27271e;
+      padding-top: 7px;
+      font-family: Georgia, serif
+    }
+
+    .newsItem b {
+      display: block;
+      font-size: 15px;
+      line-height: 1.05;
+      margin-bottom: 5px;
+      text-transform: uppercase
+    }
+
+    .newsItem span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.38
+    }
+
+    .paperQuote {
+      border-left: 5px solid var(--g);
+      background: rgba(255, 255, 255, .28);
+      padding: 10px 11px;
+      margin: 12px 0;
+      font: italic 15px/1.4 Georgia, serif
+    }
+
+    .paperQuote strong {
+      display: block;
+      font: 900 10px/1.2 Georgia, serif;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 5px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      border-top: 2px solid #333;
+      padding-top: 12px
+    }
+
+    .stat {
+      border-bottom: 1px solid #777;
+      padding: 7px 1px;
+      font-weight: 850
+    }
+
+    .stat span {
+      float: right
+    }
+
+    .ending {
+      background: var(--g);
+      color: white;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      margin-top: 15px
+    }
+
+    .ending strong {
+      display: block;
+      color: var(--y);
+      font-size: 22px
+    }
+
+    .actions {
+      display: grid;
+      gap: 9px
+    }
+
+    .toast {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      background: #13251a;
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 850;
+      transform: translateY(150%);
+      transition: .25s
+    }
+
+    .toast.show {
+      transform: none
+    }
+
+    .note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 11px
+    }
+
+    .minigame {
+      background: white;
+      border: 3px solid var(--g);
+      border-radius: 21px;
+      padding: 18px;
+      box-shadow: 8px 8px 0 var(--y);
+      text-align: center
+    }
+
+    .minigame h2 {
+      color: var(--g);
+      margin: 6px 0
+    }
+
+    .miniHelp {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4
+    }
+
+    .goal {
+      height: 220px;
+      border: 7px solid white;
+      border-bottom-width: 10px;
+      background: linear-gradient(rgba(11, 90, 55, .13), rgba(11, 90, 55, .13)), repeating-linear-gradient(0deg, transparent 0 27px, rgba(11, 90, 55, .15) 27px 29px), repeating-linear-gradient(90deg, transparent 0 42px, rgba(11, 90, 55, .15) 42px 44px);
+      position: relative;
+      margin: 16px 0;
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 3px var(--g);
+      overflow: hidden
+    }
+
+    .keeper {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 48px;
+      transition: left .15s
+    }
+
+    .aim {
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      border: 5px solid var(--y);
+      border-radius: 50%;
+      left: 8%;
+      top: 25%;
+      box-shadow: 0 0 0 3px var(--g), 0 0 18px rgba(245, 217, 10, .9)
+    }
+
+    .powerTrack {
+      height: 24px;
+      background: #dce6dd;
+      border: 3px solid var(--g);
+      border-radius: 999px;
+      position: relative;
+      overflow: hidden;
+      margin: 15px 0
+    }
+
+    .powerSweet {
+      position: absolute;
+      left: 62%;
+      width: 18%;
+      top: 0;
+      bottom: 0;
+      background: rgba(245, 217, 10, .7)
+    }
+
+    .powerNeedle {
+      position: absolute;
+      width: 8px;
+      top: -3px;
+      bottom: -3px;
+      background: var(--red);
+      left: 0
+    }
+
+    .beerWrap {
+      height: 250px;
+      display: grid;
+      place-items: end center;
+      margin: 10px 0
+    }
+
+    .glass {
+      width: 150px;
+      height: 220px;
+      border: 8px solid #e7ece8;
+      border-top-width: 5px;
+      border-radius: 10px 10px 25px 25px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .6);
+      box-shadow: inset 0 0 0 3px #8aa092
+    }
+
+    .beerLiquid {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 0;
+      background: linear-gradient(#fff4b5 0 10%, #e7ad12 11% 100%);
+      transition: height .05s
+    }
+
+    .beerLine {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 72%;
+      border-top: 4px dashed var(--g)
+    }
+
+    .miniTimer {
+      font-weight: 950;
+      color: var(--g);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .miniButton {
+      margin-top: 10px
+    }
+
+    .miniScore {
+      font-size: 46px;
+      font-weight: 950;
+      color: var(--g);
+      margin: 10px 0
+    }
+
+    /* Minijuegos táctiles */
+    .touchGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0
+    }
+
+    .touchItem {
+      min-height: 82px;
+      border: 3px solid #cbd5cd;
+      border-radius: 16px;
+      background: #f8fbf8;
+      font-size: 36px;
+      display: grid;
+      place-items: center;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none
+    }
+
+    .touchItem:active {
+      transform: scale(.96);
+      border-color: var(--g)
+    }
+
+    .crossbarGame {
+      height: 260px;
+      position: relative;
+      margin: 14px 0;
+      border: 4px solid var(--g);
+      border-radius: 18px;
+      background: linear-gradient(#bfe7ff 0 58%, #65a54f 58%);
+      overflow: hidden
+    }
+
+    .crossbarGoal {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 18px;
+      height: 138px;
+      border: 9px solid white;
+      border-bottom: 0
+    }
+
+    .crossbarTarget {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 43%;
+      height: 22px;
+      background: rgba(245, 217, 10, .82);
+      border-top: 3px solid var(--g);
+      border-bottom: 3px solid var(--g)
+    }
+
+    .crossbarBall {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      font-size: 48px
+    }
+
+    .verticalNeedle {
+      position: absolute;
+      right: 18px;
+      bottom: 12px;
+      width: 18px;
+      height: 50px;
+      background: var(--red);
+      border: 3px solid white;
+      border-radius: 999px;
+      box-shadow: 0 0 0 2px var(--g)
+    }
+
+    .swipeArena {
+      height: 250px;
+      border: 4px solid var(--g);
+      border-radius: 20px;
+      background: linear-gradient(90deg, #248654 0 49%, rgba(255, 255, 255, .85) 49% 51%, #248654 51%);
+      position: relative;
+      overflow: hidden;
+      margin: 14px 0;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none
+    }
+
+    .swipePlayer,
+    .swipeDefender {
+      position: absolute;
+      font-size: 58px;
+      top: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .swipePlayer {
+      left: 25%
+    }
+
+    .swipeDefender {
+      left: 68%
+    }
+
+    .swipeArrow {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, .9);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-weight: 950;
+      color: var(--g)
+    }
+
+    .swipeTrail {
+      position: absolute;
+      height: 8px;
+      background: var(--y);
+      border-radius: 999px;
+      left: 25%;
+      top: 50%;
+      width: 0;
+      transform-origin: left center;
+      opacity: 0;
+      transition: .2s
+    }
+
+    .rouletteWrap {
+      display: grid;
+      place-items: center;
+      margin: 12px 0
+    }
+
+    .rouletteWheel {
+      width: min(78vw, 290px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 9px solid var(--g);
+      background: conic-gradient(var(--y) 0 45deg, #fff 45deg 90deg, var(--g2) 90deg 135deg, #dfe9df 135deg 180deg, var(--y) 180deg 225deg, #fff 225deg 270deg, var(--g2) 270deg 315deg, #dfe9df 315deg);
+      position: relative;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 2.3s cubic-bezier(.12, .72, .08, 1)
+    }
+
+    .rouletteWheel:after {
+      content: 'CF\AUSED';
+      white-space: pre;
+      position: absolute;
+      inset: 32%;
+      border-radius: 50%;
+      background: var(--g);
+      color: var(--y);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-weight: 950;
+      border: 5px solid white
+    }
+
+    .roulettePointer {
+      font-size: 36px;
+      color: var(--red);
+      margin-bottom: -13px;
+      z-index: 2
+    }
+
+    .gestureHint {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 850;
+      margin: 9px 0
+    }
+
+    .miniStartPanel {
+      padding: 10px 0
+    }
+
+    .miniStartPanel .btn {
+      min-height: 54px
+    }
+
+    .choice,
+    .btn,
+    .trait {
+      min-height: 48px;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    .minigame {
+      touch-action: pan-y
+    }
+
+    .safeBottom {
+      padding-bottom: max(8px, env(safe-area-inset-bottom))
+    }
+
+    .crossbarTapGame {
+      padding: 8px 0
+    }
+
+    .crossbarTapGoal {
+      height: 225px;
+      position: relative;
+      margin: 10px 0 12px;
+      border: 5px solid var(--g);
+      border-radius: 18px;
+      background: linear-gradient(#c9edff 0 57%, #65a54f 57%);
+      overflow: hidden
+    }
+
+    .crossbarTapSegments {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 42px;
+      height: 48px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 3
+    }
+
+    .crossbarSegment {
+      border: 0;
+      border-right: 2px solid rgba(255, 255, 255, .55);
+      background: #f5f5f5;
+      min-width: 0;
+      touch-action: manipulation
+    }
+
+    .crossbarSegment:first-child {
+      border-radius: 8px 0 0 8px
+    }
+
+    .crossbarSegment:last-child {
+      border-radius: 0 8px 8px 0;
+      border-right: 0
+    }
+
+    .crossbarSegment.active {
+      background: var(--y);
+      box-shadow: 0 0 18px 8px rgba(245, 217, 10, .75);
+      transform: scaleY(1.16)
+    }
+
+    .crossbarNet {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 88px;
+      bottom: 24px;
+      border: 7px solid white;
+      border-top: 0;
+      background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(255, 255, 255, .38) 29px 31px), repeating-linear-gradient(0deg, transparent 0 24px, rgba(255, 255, 255, .38) 25px 27px)
+    }
+
+    .crossbarTapBall {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 46px
+    }
+
+    .crossTime {
+      font-weight: 900;
+      font-size: 22px
+    }
+
+    .crossbarSegment:active {
+      filter: brightness(.9)
+    }
+
+    @media(max-width:560px) {
+
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden
+      }
+
+      body {
+        min-height: 100dvh
+      }
+
+      .app {
+        min-height: 100dvh
+      }
+
+      .top {
+        padding-top: max(10px, env(safe-area-inset-top));
+        padding-left: max(13px, env(safe-area-inset-left));
+        padding-right: max(13px, env(safe-area-inset-right))
+      }
+
+      main {
+        padding: 14px 14px max(22px, env(safe-area-inset-bottom))
+      }
+
+      .card {
+        padding: 17px;
+        min-height: 245px;
+        margin-bottom: 15px
+      }
+
+      .card h2 {
+        font-size: 23px
+      }
+
+      .card p {
+        font-size: 16px
+      }
+
+      .choices {
+        gap: 9px
+      }
+
+      .choice {
+        padding: 13px;
+        font-size: 15px
+      }
+
+      .minigame {
+        padding: 14px;
+        box-shadow: 5px 5px 0 var(--y)
+      }
+
+      .goal {
+        height: 190px
+      }
+
+      .beerWrap {
+        height: 220px
+      }
+
+      .glass {
+        height: 195px;
+        width: 135px
+      }
+
+      .liveStat {
+        padding: 7px 1px
+      }
+
+      .liveStat b {
+        font-size: 15px
+      }
+
+      .liveStat span {
+        font-size: 8px
+      }
+
+      .touchItem {
+        min-height: 72px
+      }
+
+      .crossbarGame,
+      .swipeArena {
+        height: 220px
+      }
+
+      .headline {
+        font-size: 29px
+      }
+
+      .mast {
+        font-size: 30px
+      }
+
+      .newsGrid {
+        grid-template-columns: 1fr
+      }
+
+      .leadStory {
+        font-size: 14px
+      }
+    }
+
+    @media(max-width:370px) {
+      main {
+        padding-left: 10px;
+        padding-right: 10px
+      }
+
+      .hero h1 {
+        font-size: 34px
+      }
+
+      .top {
+        padding-left: 10px;
+        padding-right: 10px
+      }
+
+      .brand {
+        gap: 6px
+      }
+
+      .crest {
+        width: 36px;
+        height: 43px
+      }
+
+      .playerTag {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+
+      .liveStat span {
+        font-size: 7px
+      }
+
+      .touchGrid {
+        gap: 7px
+      }
+
+      .touchItem {
+        min-height: 64px;
+        font-size: 30px
+      }
+    }
+
+    @media(max-width:560px) {
+      body {
+        padding: 0
+      }
+
+      .app {
+        width: 100%;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0
+      }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 5
+      }
+
+      main {
+        padding: 18px
+      }
+
+      .hero h1 {
+        font-size: 39px
+      }
+
+      .card {
+        min-height: 270px
+      }
+    }
+
+    .rarityBadge {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: max-content;
+      max-width: 100%;
+      margin: 0 auto 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .08em;
+      text-transform: uppercase
+    }
+
+    .rarityBadge.show {
+      display: flex
+    }
+
+    .rarityBadge.rare {
+      background: #dcebff;
+      color: #1458a4;
+      border: 2px solid #5597e6;
+      box-shadow: 0 0 18px rgba(65, 133, 220, .35)
+    }
+
+    .rarityBadge.ultra {
+      background: linear-gradient(135deg, #64171d, #d3323e);
+      color: #fff4a8;
+      border: 2px solid #ffd84a;
+      box-shadow: 0 0 24px rgba(216, 36, 51, .55);
+      animation: ultraPulse 1.2s infinite alternate
+    }
+
+    .rarityBadge.historic {
+      background: linear-gradient(135deg, #f4e7bd, #fff9df);
+      color: #5b4214;
+      border: 2px solid #b88a2f;
+      box-shadow: 0 0 18px rgba(184, 138, 47, .35)
+    }
+
+    @keyframes ultraPulse {
+      to {
+        transform: scale(1.035);
+        box-shadow: 0 0 34px rgba(255, 216, 74, .72)
+      }
+    }
+
+    .card.rareCard,
+    .minigame.rareCard {
+      border-color: #397bd1;
+      box-shadow: 8px 8px 0 #b8d8ff
+    }
+
+    .card.ultraCard,
+    .minigame.ultraCard {
+      border-color: #c92c38;
+      box-shadow: 8px 8px 0 #ffd84a;
+      animation: ultraGlow 1.2s infinite alternate
+    }
+
+    .card.historicCard,
+    .minigame.historicCard {
+      border-color: #b88a2f;
+      box-shadow: 8px 8px 0 #ead18b;
+      background: linear-gradient(180deg, #fffdf6, #fff9df)
+    }
+
+    @keyframes ultraGlow {
+      to {
+        filter: saturate(1.15);
+        transform: translateY(-2px)
+      }
+    }
+
+    .collectionGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 15px
+    }
+
+    .collectionCard {
+      border: 2px solid #cbd5cd;
+      background: white;
+      border-radius: 15px;
+      padding: 13px;
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .collectionCard.locked {
+      filter: grayscale(1);
+      opacity: .48
+    }
+
+    .collectionIcon {
+      font-size: 32px;
+      width: 44px;
+      text-align: center
+    }
+
+    .collectionInfo {
+      min-width: 0
+    }
+
+    .collectionInfo b {
+      display: block;
+      color: var(--g);
+      font-size: 14px
+    }
+
+    .collectionInfo span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .collectionTop {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px
+    }
+
+    .collectionTop h2 {
+      margin: 0;
+      color: var(--g)
+    }
+
+    .discoveryToast {
+      position: fixed;
+      z-index: 99;
+      left: 50%;
+      top: max(14px, env(safe-area-inset-top));
+      transform: translate(-50%, -160%);
+      width: min(92vw, 430px);
+      background: #13251a;
+      color: white;
+      border: 3px solid var(--y);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 900;
+      transition: .35s;
+      box-shadow: var(--shadow)
+    }
+
+    .discoveryToast.show {
+      transform: translate(-50%, 0)
+    }
+
+    .discoveryToast.ultra {
+      background: #701b23;
+      border-color: #ffd84a
+    }
+
+    .gala {
+      margin: 22px 0 18px
+    }
+
+    .galaTitle {
+      text-align: center;
+      color: var(--g);
+      font-size: 24px;
+      margin: 0 0 12px
+    }
+
+    .awards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px
+    }
+
+    .award {
+      background: white;
+      border: 2px solid #c8d5cb;
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 88px
+    }
+
+    .awardIcon {
+      font-size: 26px
+    }
+
+    .award b {
+      display: block;
+      color: var(--g);
+      font-size: 13px;
+      margin: 4px 0
+    }
+
+    .award span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3
+    }
+
+    .playerCard {
+      margin: 20px auto;
+      background: linear-gradient(150deg, #f7de2a, #d39b0a 52%, #fff2a5);
+      border: 4px solid #17351f;
+      border-radius: 22px;
+      padding: 17px;
+      color: #17351f;
+      box-shadow: 9px 9px 0 var(--g);
+      max-width: 350px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .playerCard:before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 28px solid rgba(255, 255, 255, .18);
+      border-radius: 50%;
+      right: -80px;
+      top: -75px
+    }
+
+    .cardTopline {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative
+    }
+
+    .overall {
+      font-size: 52px;
+      font-weight: 1000;
+      line-height: .9
+    }
+
+    .position {
+      font-weight: 1000;
+      font-size: 13px;
+      text-transform: uppercase
+    }
+
+    .miniCrest {
+      background: var(--g);
+      color: var(--y);
+      padding: 8px;
+      border-radius: 9px;
+      font-weight: 950;
+      text-align: center;
+      line-height: .9
+    }
+
+    .cardPlayer {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      margin: 14px 0 10px;
+      position: relative
+    }
+
+    .attributes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      border-top: 2px solid rgba(20, 32, 25, .35);
+      padding-top: 11px;
+      position: relative
+    }
+
+    .attribute {
+      text-align: center;
+      font-weight: 1000;
+      font-size: 18px
+    }
+
+    .attribute small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: .08em
+    }
+
+    .seasonRating {
+      text-align: center;
+      font-weight: 900;
+      margin-top: 10px;
+      font-size: 12px
+    }
+
+    .secretEnding {
+      background: linear-gradient(135deg, #5b1020, #ba2437);
+      border: 3px solid #ffd84a;
+      color: white;
+      border-radius: 15px;
+      padding: 13px;
+      text-align: center;
+      margin-top: 14px
+    }
+
+    .secretEnding strong {
+      display: block;
+      color: #ffd84a;
+      font-size: 18px
+    }
+
+    @media(max-width:390px) {
+      .awards {
+        grid-template-columns: 1fr
+      }
+
+      .playerCard {
+        padding: 14px
+      }
+
+      .overall {
+        font-size: 45px
+      }
+
+      .cardPlayer {
+        font-size: 21px
+      }
+    }
+
+    .crossbarShotsGame {
+      padding: 4px 0
+    }
+
+    .shotScore {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 900;
+      margin: 2px 0 10px
+    }
+
+    .shotScore b {
+      color: var(--g);
+      font-size: 22px
+    }
+
+    .shotGoal {
+      height: 220px;
+      position: relative;
+      border-radius: 18px;
+      background: linear-gradient(#c9edff 0 57%, #65a54f 57%);
+      overflow: hidden;
+      border: 4px solid var(--g)
+    }
+
+    .shotBar {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 42px;
+      height: 34px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      z-index: 4
+    }
+
+    .shotBar span {
+      background: #fff;
+      border-right: 3px solid rgba(26, 94, 52, .32);
+      transition: .18s
+    }
+
+    .shotBar span:first-child {
+      border-radius: 8px 0 0 8px
+    }
+
+    .shotBar span:last-child {
+      border-right: 0;
+      border-radius: 0 8px 8px 0
+    }
+
+    .shotBar span.target {
+      background: #ffe96b
+    }
+
+    .shotBar span.hit {
+      background: var(--y);
+      box-shadow: 0 0 20px 7px rgba(245, 217, 10, .8)
+    }
+
+    .shotBar span.miss {
+      background: #ff8b8b
+    }
+
+    .shotNet {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 76px;
+      bottom: 22px;
+      border: 7px solid #fff;
+      border-top: 0;
+      background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(255, 255, 255, .38) 29px 31px), repeating-linear-gradient(0deg, transparent 0 24px, rgba(255, 255, 255, .38) 25px 27px)
+    }
+
+    .shotBall {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 46px;
+      z-index: 5;
+      transition: transform .52s cubic-bezier(.2, .8, .3, 1), left .52s, bottom .52s
+    }
+
+    .shotBall.to-0 {
+      left: 22%;
+      bottom: 145px
+    }
+
+    .shotBall.to-1 {
+      left: 50%;
+      bottom: 145px
+    }
+
+    .shotBall.to-2 {
+      left: 78%;
+      bottom: 145px
+    }
+
+    .shotBall.ballHit {
+      transform: translateX(-50%) rotate(360deg) scale(1.08)
+    }
+
+    .shotBall.ballMiss {
+      transform: translateX(-50%) rotate(220deg) scale(.88)
+    }
+
+    .shotMessage {
+      text-align: center;
+      font-weight: 900;
+      min-height: 30px;
+      padding: 9px 3px 5px
+    }
+
+    .shotChoices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px
+    }
+
+    .shotZone {
+      min-height: 70px;
+      border: 3px solid var(--g);
+      border-radius: 15px;
+      background: #fff;
+      font-size: 25px;
+      font-weight: 900;
+      color: var(--g);
+      touch-action: manipulation
+    }
+
+    .shotZone small {
+      display: block;
+      font-size: 11px;
+      margin-top: 4px
+    }
+
+    .shotZone:active {
+      transform: scale(.97);
+      background: var(--y)
+    }
+
+    .shotZone:disabled {
+      opacity: .62
+    }
+
+    @media(max-width:420px) {
+      .shotGoal {
+        height: 195px
+      }
+
+      .shotBall.to-0,
+      .shotBall.to-1,
+      .shotBall.to-2 {
+        bottom: 125px
+      }
+
+      .shotZone {
+        min-height: 64px;
+        font-size: 22px
+      }
+    }
+
+    .achievementGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 15px
+    }
+
+    .achievementCard {
+      border: 2px solid #cbd5cd;
+      background: white;
+      border-radius: 15px;
+      padding: 13px;
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .achievementCard.locked {
+      filter: grayscale(1);
+      opacity: .48
+    }
+
+    .achievementIcon {
+      font-size: 32px;
+      width: 44px;
+      text-align: center
+    }
+
+    .achievementInfo {
+      min-width: 0
+    }
+
+    .achievementInfo b {
+      display: block;
+      color: var(--g);
+      font-size: 14px
+    }
+
+    .achievementInfo span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .achievementTop {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px
+    }
+
+    .achievementTop h2 {
+      margin: 0;
+      color: var(--g)
+    }
+
+    .achievementToast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: max(18px, env(safe-area-inset-bottom));
+      transform: translate(-50%, 160%);
+      width: min(92vw, 430px);
+      background: #173e28;
+      color: white;
+      border: 3px solid var(--y);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 900;
+      transition: .35s;
+      box-shadow: var(--shadow)
+    }
+
+    .achievementToast.show {
+      transform: translate(-50%, 0)
+    }
+
+    .playerAlbumGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 15px
+    }
+
+    .collectible {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: 14px;
+      min-height: 190px;
+      color: #102016;
+      border: 3px solid #d3b22f;
+      background: linear-gradient(145deg, #fff5a8, #f4ca36 55%, #d79c15);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .16)
+    }
+
+    .collectible.silver {
+      border-color: #aeb8bc;
+      background: linear-gradient(145deg, #f7fafb, #cfd8dc 56%, #9ca9ae)
+    }
+
+    .collectible.special {
+      border-color: #65d68a;
+      background: linear-gradient(145deg, #efff77, #43ba67 62%, #176f39);
+      color: #07180d
+    }
+
+    .collectible.legendary {
+      border-color: #ffdb4d;
+      background: linear-gradient(145deg, #8b1d2c, #d43b37 48%, #ffcc3d);
+      color: white
+    }
+
+    .collectible.locked {
+      filter: grayscale(1);
+      opacity: .42
+    }
+
+    .collectibleTop {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start
+    }
+
+    .collectibleOvr {
+      font-size: 34px;
+      font-weight: 1000;
+      line-height: 1
+    }
+
+    .collectiblePos {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em
+    }
+
+    .collectibleIcon {
+      font-size: 45px
+    }
+
+    .collectiblePhoto {
+      position: relative;
+      width: 92px;
+      height: 108px;
+      margin: -4px -2px 0 8px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .3);
+      border: 2px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto
+    }
+
+    .collectiblePhoto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block
+    }
+
+    .collectiblePhoto .photoFallback {
+      font-size: 45px
+    }
+
+    .collectibleName {
+      margin-top: 23px;
+      font-size: 17px;
+      font-weight: 1000;
+      text-transform: uppercase
+    }
+
+    .collectibleStats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 900
+    }
+
+    .collectibleStats span {
+      background: rgba(255, 255, 255, .38);
+      border-radius: 7px;
+      padding: 5px;
+      text-align: center
+    }
+
+    .collectibleCount {
+      position: absolute;
+      right: 8px;
+      bottom: 7px;
+      background: #102016;
+      color: white;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 900
+    }
+
+    .rewardBox {
+      margin: 18px 0 0
+    }
+
+    .rewardBox h3 {
+      margin: 0 0 10px;
+      color: var(--g)
+    }
+
+    .rewardBox .collectible {
+      max-width: 280px;
+      margin: auto
+    }
+
+    .albumTop {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center
+    }
+
+    .albumTop h2 {
+      margin: 0;
+      color: var(--g)
+    }
+
+    @media(max-width:390px) {
+      .playerAlbumGrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px
+      }
+
+      .collectible {
+        padding: 10px;
+        min-height: 170px
+      }
+
+      .collectibleName {
+        font-size: 14px
+      }
+
+      .collectibleIcon {
+        font-size: 36px
+      }
+
+      .collectiblePhoto {
+        width: 76px;
+        height: 92px;
+        margin-left: 5px
+      }
+
+      .collectiblePhoto .photoFallback {
+        font-size: 36px
+      }
+    }
+
+    .historyTop {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px
+    }
+
+    .historyTop h2 {
+      margin: 0;
+      color: var(--g)
+    }
+
+    .historySummary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 14px 0
+    }
+
+    .historyBox {
+      background: white;
+      border: 2px solid #d9e3dc;
+      border-radius: 15px;
+      padding: 13px;
+      text-align: center
+    }
+
+    .historyBox b {
+      display: block;
+      color: var(--g);
+      font-size: 25px;
+      line-height: 1
+    }
+
+    .historyBox span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      margin-top: 5px;
+      text-transform: uppercase
+    }
+
+    .recordGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px
+    }
+
+    .recordCard {
+      background: linear-gradient(145deg, #173e28, #24623e);
+      color: white;
+      border: 2px solid var(--y);
+      border-radius: 14px;
+      padding: 12px
+    }
+
+    .recordCard b {
+      display: block;
+      color: var(--y);
+      font-size: 19px
+    }
+
+    .recordCard span {
+      display: block;
+      font-size: 11px;
+      margin-top: 4px
+    }
+
+    .recentSeasons {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px
+    }
+
+    .recentSeason {
+      background: white;
+      border: 2px solid #d9e3dc;
+      border-radius: 14px;
+      padding: 11px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 7px
+    }
+
+    .recentSeason b {
+      color: var(--g)
+    }
+
+    .recentSeason small {
+      color: var(--muted)
+    }
+
+    .historyEmpty {
+      text-align: center;
+      padding: 28px 12px;
+      color: var(--muted)
+    }
+
+    @media(max-width:390px) {
+
+      .historySummary,
+      .recordGrid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .historyBox {
+        padding: 10px
+      }
+
+      .historyBox b {
+        font-size: 21px
+      }
+
+      .recordCard {
+        padding: 10px
+      }
+    }
+
+    .matchSim {
+      background: linear-gradient(165deg, #153c27, #24623e);
+      color: white;
+      border: 4px solid var(--y);
+      border-radius: 20px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(10, 40, 24, .2)
+    }
+
+    .matchSim .matchLabel {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--y)
+    }
+
+    .matchTeams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 16px 0
+    }
+
+    .matchTeam {
+      font-size: 16px;
+      font-weight: 950;
+      line-height: 1.15
+    }
+
+    .matchTeam small {
+      display: block;
+      font-size: 11px;
+      color: #cfe5d5;
+      margin-top: 4px
+    }
+
+    .matchScore {
+      background: var(--y);
+      color: #163a26;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 30px;
+      font-weight: 950;
+      min-width: 92px;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, .22)
+    }
+
+    .matchVenue {
+      font-size: 12px;
+      color: #d9ebdf;
+      margin-bottom: 12px
+    }
+
+    .scorerList {
+      display: grid;
+      gap: 7px;
+      text-align: left;
+      margin: 14px 0
+    }
+
+    .scorerRow {
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255, 255, 255, .1);
+      border-radius: 11px;
+      padding: 8px 10px
+    }
+
+    .scorerMinute {
+      font-weight: 950;
+      color: var(--y)
+    }
+
+    .scorerTeam {
+      font-size: 11px;
+      color: #cfe5d5
+    }
+
+    .scorerName {
+      font-weight: 850
+    }
+
+    .matchContribution {
+      background: white;
+      color: #163a26;
+      border-radius: 13px;
+      padding: 11px;
+      margin: 14px 0;
+      text-align: left
+    }
+
+    .matchContribution b {
+      display: block;
+      color: var(--g);
+      margin-bottom: 4px
+    }
+
+    .matchContribution span {
+      font-size: 13px;
+      line-height: 1.4
+    }
+
+    .matchVerdict {
+      font-weight: 900;
+      color: var(--y);
+      margin: 8px 0 14px
+    }
+
+    @media(max-width:420px) {
+      .matchSim {
+        padding: 14px
+      }
+
+      .matchTeams {
+        gap: 6px
+      }
+
+      .matchTeam {
+        font-size: 14px
+      }
+
+      .matchScore {
+        font-size: 26px;
+        min-width: 80px;
+        padding: 9px 10px
+      }
+
+      .scorerRow {
+        grid-template-columns: 32px 1fr auto;
+        padding: 8px
+      }
+
+      .scorerName {
+        font-size: 13px
+      }
+    }
+
+    .whatsappBox {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #e7f0e4;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, .28);
+      color: #18231b
+    }
+
+    .waHead {
+      background: #176b43;
+      color: #fff;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .waAvatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #f4d72d;
+      color: #174b2f;
+      font-weight: 1000
+    }
+
+    .waHead b {
+      display: block;
+      font-size: 17px
+    }
+
+    .waHead small {
+      opacity: .85
+    }
+
+    .waChat {
+      padding: 16px 12px 10px;
+      background: linear-gradient(rgba(234, 225, 209, .88), rgba(234, 225, 209, .88)), repeating-linear-gradient(45deg, #d8cfbf 0 2px, transparent 2px 14px);
+      min-height: 310px
+    }
+
+    .waMsg {
+      max-width: 88%;
+      margin: 0 0 10px;
+      padding: 9px 11px 7px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .16);
+      font-size: 15px;
+      line-height: 1.35
+    }
+
+    .waMsg.me {
+      margin-left: auto;
+      background: #d7ffc9
+    }
+
+    .waName {
+      font-size: 12px;
+      font-weight: 900;
+      color: #176b43;
+      margin-bottom: 3px
+    }
+
+    .waTime {
+      text-align: right;
+      font-size: 10px;
+      color: #68726b;
+      margin-top: 4px
+    }
+
+    .waAction {
+      padding: 12px;
+      background: #f6f7f5
+    }
+
+    .waAction .btn {
+      margin: 0
+    }
+
+    .waTyping {
+      font-style: italic;
+      color: #5b655e;
+      font-size: 13px;
+      margin: 4px 8px 10px
+    }
+
+    @media(max-width:520px) {
+      .whatsappBox {
+        border-radius: 0;
+        min-height: calc(100dvh - 74px)
+      }
+
+      .waChat {
+        min-height: calc(100dvh - 245px);
+        padding-bottom: 18px
+      }
+
+      .waMsg {
+        font-size: 14px;
+        max-width: 92%
+      }
+    }
+
+    .matchMvpInline {
+      margin: 14px 0 16px;
+      padding: 12px 14px;
+      border: 2px solid rgba(244, 215, 45, .75);
+      border-radius: 16px;
+      background: linear-gradient(135deg, #173e28, #245f3d);
+      color: white
+    }
+
+    .matchMvpInline b {
+      display: block;
+      color: #f4d72d;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .matchMvpInline span {
+      display: block;
+      margin-top: 5px;
+      font-weight: 850;
+      line-height: 1.35
+    }
+
+    .matchMvpInline small {
+      display: block;
+      margin-top: 4px;
+      opacity: .78
+    }
+
+    .mvpCard {
+      max-width: 620px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #174b2f, #0d2e1d);
+      border: 2px solid rgba(244, 215, 45, .7);
+      border-radius: 26px;
+      padding: 24px;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, .35);
+      text-align: center
+    }
+
+    .mvpBadge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f4d72d;
+      color: #173c27;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    .mvpName {
+      font-size: clamp(30px, 8vw, 52px);
+      font-weight: 1000;
+      margin: 18px 0 4px
+    }
+
+    .mvpRating {
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 1000;
+      color: #f4d72d
+    }
+
+    .mvpStars {
+      font-size: 28px;
+      letter-spacing: 4px;
+      margin: 8px 0
+    }
+
+    .mvpReason {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 18px 0;
+      font-size: 17px;
+      line-height: 1.45
+    }
+
+    .mvpDetails {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 16px 0
+    }
+
+    .mvpDetail {
+      background: rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      padding: 11px 6px;
+      font-weight: 900
+    }
+
+    .mvpDetail small {
+      display: block;
+      font-size: 10px;
+      opacity: .72;
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    @media(max-width:480px) {
+      .mvpCard {
+        border-radius: 0;
+        min-height: calc(100dvh - 72px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center
+      }
+
+      .mvpDetails {
+        gap: 6px
+      }
+
+      .mvpDetail {
+        font-size: 14px
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="crest">CF<br>USED</div>
+        <div>CF Used<div class="sub">Una temporada</div>
+        </div>
+      </div>
+      <div class="topActions"><button class="soundBtn off" id="soundBtn" type="button" aria-label="Activar sonido" title="Activar sonido">🔇</button>
+        <div class="playerTag" id="playerTag">⚽</div>
+      </div>
+    </header>
+    <div class="track">
+      <div id="bar"></div>
+    </div>
+    <div class="liveStats" id="liveStats">
+      <div class="liveStat" data-stat="goals"><b id="liveGoals">0</b><span>Goles</span></div>
+      <div class="liveStat" data-stat="assists"><b id="liveAssists">0</b><span>Asist.</span></div>
+      <div class="liveStat" data-stat="yellows"><b id="liveYellows">0</b><span>Amarillas</span></div>
+      <div class="liveStat" data-stat="beers"><b id="liveBeers">0</b><span>Cervezas</span></div>
+      <div class="liveStat" data-stat="memes"><b id="liveMemes">0</b><span>Memes</span></div>
+      <div class="liveStat" data-stat="wins"><b id="liveWins">0</b><span>Victorias</span></div>
+      <div class="liveStat" data-stat="mvps"><b id="liveMvps">0</b><span>MVPs</span></div>
+      <div class="liveStat" data-stat="quality"><b id="liveQuality">2</b><span>Calidad</span></div>
+      <div class="liveStat" data-stat="luck"><b id="liveLuck">0</b><span>Suerte</span></div>
+      <div class="liveStat" data-stat="popularity"><b id="livePopularity">0</b><span>Fama</span></div>
+      <div class="liveStat" data-stat="andres"><b id="liveAndres">0</b><span>Andrés</span></div>
+    </div>
+    <main>
+      <section id="start" class="screen active">
+        <div class="hero">
+          <h1>CF Used<span>Una temporada</span></h1>
+          <p class="tag">Veinte eventos de Liga, Copa al final y momentos históricos basados en hechos casi reales.</p>
+          <div class="pitch"></div><button class="btn primary" id="startBtn">Empezar temporada</button><button class="btn ghost" id="collectionBtn" style="margin-top:10px">🃏 Colección del Used <span id="collectionCount"></span></button><button class="btn ghost" id="achievementsBtn" style="margin-top:10px">🏆 Logros <span id="achievementCount"></span></button><button class="btn ghost" id="playerAlbumBtn" style="margin-top:10px">🎴 Cromos de jugadores <span id="playerAlbumCount"></span></button><button class="btn ghost" id="historyBtn" style="margin-top:10px">📊 Estadísticas históricas <span id="historyCount"></span></button>
+        </div>
+      </section>
+      <section id="create" class="screen">
+        <h2>Crea tu jugador</h2>
+        <p class="tag" style="font-size:15px">Aquí no hay entrenamientos. Los martes se juega entre las 20:00 y las 22:00, y bastante es llegar siete.</p>
+        <div class="field"><label>Nombre</label><input id="name" value="Javi" maxlength="18"></div>
+        <div class="field"><label>Dorsal</label><input id="number" type="number" min="1" max="99" value="7"></div>
+        <div class="field"><label>Rol</label>
+          <div class="role-note">⚽ Jugador de campo del CF Used</div>
+        </div>
+        <div class="field"><label>Tu especialidad</label></div>
+        <div class="traits"><button class="trait selected" data-trait="personaje">😂 El personaje</button><button class="trait" data-trait="bueno">⚽ El bueno</button><button class="trait" data-trait="fiestero">🍺 El fiestero</button><button class="trait" data-trait="currante">💪 El currante</button></div><button class="btn secondary" id="signBtn">Entrar al grupo del CF Used</button>
+      </section>
+      <section id="phase" class="screen">
+        <div class="phase">
+          <div class="cup">🏆</div>
+          <h2>Empieza la Copa</h2>
+          <p>La Liga ya ha terminado. Ahora cada partido puede ser el último.<br><br>Andrés manda un mensaje: <strong>“A ver si hoy aparecemos siete.”</strong></p><button class="btn primary" id="cupBtn">Jugar la Copa</button>
+        </div>
+      </section>
+      <section id="event" class="screen">
+        <div class="meta"><span id="round"></span><span id="count"></span></div>
+        <div class="card" id="eventCard">
+          <div class="rarityBadge" id="eventRarity"></div>
+          <div class="emoji" id="eventEmoji"></div>
+          <h2 id="eventTitle"></h2>
+          <p id="eventText"></p>
+        </div>
+        <div class="choices" id="choices"></div>
+      </section>
+      <section id="minigame" class="screen">
+        <div class="meta"><span id="miniCategory">Minijuego</span><span id="miniCount"></span></div>
+        <div class="minigame" id="miniCard">
+          <div class="rarityBadge" id="miniRarity"></div>
+          <div class="emoji" id="miniEmoji">🎮</div>
+          <h2 id="miniTitle"></h2>
+          <p class="miniHelp" id="miniText"></p>
+          <div id="miniArea"></div>
+        </div>
+      </section>
+      <section id="result" class="screen">
+        <div class="result">
+          <div class="emoji" id="resEmoji"></div>
+          <h2 id="resTitle"></h2>
+          <p id="resText"></p>
+          <div class="chips" id="chips"></div><button class="btn primary" id="nextBtn">Continuar</button>
+        </div>
+      </section>
+      <section id="matchSummary" class="screen">
+        <div class="matchSim">
+          <div class="matchLabel" id="matchLabel">Resultado de la jornada</div>
+          <div class="matchVenue" id="matchVenue"></div>
+          <div class="matchTeams">
+            <div class="matchTeam">CF Used<small id="usedForm">Used F7</small></div>
+            <div class="matchScore" id="matchScore">0 - 0</div>
+            <div class="matchTeam" id="opponentName">Rival<small id="opponentTag">Liga de los martes</small></div>
+          </div>
+          <div class="matchVerdict" id="matchVerdict"></div>
+          <div class="scorerList" id="scorerList"></div>
+          <div class="matchContribution" id="matchContribution"></div>
+          <div class="matchMvpInline" id="matchMvpInline"></div><button class="btn primary" id="matchNextBtn">Seguir temporada</button>
+        </div>
+      </section>
+      <section id="collection" class="screen">
+        <div class="collectionTop">
+          <h2>🃏 Colección del Used</h2><button class="btn ghost" id="closeCollection" style="width:auto;padding:10px 14px">Volver</button>
+        </div>
+        <p class="tag" style="font-size:14px">Las cartas raras y los momentos históricos quedan guardados en este dispositivo cuando aparecen.</p>
+        <div class="collectionGrid" id="collectionGrid"></div>
+      </section>
+      <section id="achievements" class="screen">
+        <div class="achievementTop">
+          <h2>🏆 Logros del CF Used</h2><button class="btn ghost" id="closeAchievements" style="width:auto;padding:10px 14px">Volver</button>
+        </div>
+        <p class="tag" style="font-size:14px">Se guardan en este teléfono. Algunos se consiguen jugando bien; otros, haciendo historia por motivos discutibles.</p>
+        <div class="achievementGrid" id="achievementGrid"></div>
+      </section>
+      <section id="playerAlbum" class="screen">
+        <div class="albumTop">
+          <h2>🎴 Cromos del CF Used</h2><button class="btn ghost" id="closePlayerAlbum" style="width:auto;padding:10px 14px">Volver</button>
+        </div>
+        <p class="tag" style="font-size:14px">Recibes un cromo al terminar cada temporada. Los repetidos también cuentan.</p>
+        <div class="playerAlbumGrid" id="playerAlbumGrid"></div>
+      </section>
+      <section id="historyStats" class="screen">
+        <div class="historyTop">
+          <h2>📊 Historial del CF Used</h2><button class="btn ghost" id="closeHistory" style="width:auto;padding:10px 14px">Volver</button>
+        </div>
+        <p class="tag" style="font-size:14px">Todas tus temporadas quedan guardadas en este teléfono.</p>
+        <div id="historyContent"></div>
+      </section>
+      <section id="final" class="screen">
+        <div class="paper">
+          <div class="mast">USED INFORMA</div>
+          <div class="date">Edición especial · Temporada del CF Used</div>
+          <div class="paperKicker" id="paperKicker"></div>
+          <div class="headline" id="headline"></div>
+          <div class="deck" id="deck"></div>
+          <div class="leadStory" id="leadStory"></div>
+          <div class="newsGrid" id="newsGrid"></div>
+          <div class="paperQuote" id="paperQuote"></div>
+          <div class="stats" id="stats"></div>
+          <div class="ending"><span>Final desbloqueado</span><strong id="ending"></strong></div>
+          <div id="secretEnding"></div>
+        </div>
+        <div class="gala">
+          <h2 class="galaTitle">🏅 Gala Used Informa</h2>
+          <div class="awards" id="awards"></div>
+        </div>
+        <div class="playerCard" id="playerCard">
+          <div class="cardTopline">
+            <div>
+              <div class="overall" id="overall">80</div>
+              <div class="position">JUGADOR CF USED</div>
+            </div>
+            <div class="miniCrest">CF<br>USED</div>
+          </div>
+          <div class="cardPlayer" id="cardPlayer"></div>
+          <div class="attributes" id="attributes"></div>
+          <div class="seasonRating" id="seasonRating"></div>
+        </div>
+        <div class="rewardBox">
+          <h3>🎁 Cromo conseguido</h3>
+          <div id="seasonReward"></div>
+        </div>
+        <div class="actions"><button class="btn primary" id="copyBtn">Copiar resultado</button><button class="btn secondary" id="againBtn">Jugar otra temporada</button></div>
+        <div class="note">Versión 0.31 · MVP integrado en el resultado y estadísticas acumuladas.</div>
+      </section>
+    </main>
+    <div class="toast" id="toast">Resultado copiado</div>
+    <div class="discoveryToast" id="discoveryToast"></div>
+    <div class="achievementToast" id="achievementToast"></div>
+  </div>
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id);
+      const screens = [...document.querySelectorAll('.screen')];
+      const show = id => { screens.forEach(s => s.classList.toggle('active', s.id === id)); window.scrollTo({ top: 0, behavior: 'smooth' }) };
+      const rnd = a => a[Math.floor(Math.random() * a.length)];
+      const shuffle = a => [...a].sort(() => Math.random() - .5);
+      function cardTheme(card) {
+        if (card?.theme) return card.theme;
+        const t = ((card?.id || '') + ' ' + (card?.title || '') + ' ' + (card?.texts || []).join(' ')).toLowerCase();
+        const groups = [
+          ['yeray', ['yeray']], ['andres', ['andrés', 'andres']], ['hugo', ['hugo', 'portero']],
+          ['clasificacion', ['caf', 'fersa', 'lider', 'clasificación', 'puntos']],
+          ['cero_goles', ['cero goles', 'sin marcar', 'javi_penalti', 'club del cero']],
+          ['familia', ['hermanos', 'melendo', 'oroz', 'gimeno', 'golet']],
+          ['arbitro', ['árbitro', 'arbitro', 'amarilla', 'penalti dudoso']],
+          ['equipacion', ['petos', 'camiseta', 'equipación', 'medias', 'botas']],
+          ['used_bar', ['sonia', 'richard', 'cerveza', 'ronda']],
+          ['whatsapp', ['whatsapp', 'grupo', 'audio', 'convocatoria']],
+          ['campo', ['fleta', 'valdefierro', 'federación', 'campo']],
+          ['acta', ['acta', 'estadística', 'goleadores']],
+          ['cambios', ['cambio', 'banquillo']],
+        ];
+        for (const [theme, words] of groups) if (words.some(w => t.includes(w))) return theme;
+        return card?.id || Math.random().toString(36);
+      }
+      function pickDiverse(cards, count, maxPerTheme = 1) {
+        const pool = shuffle(cards), picked = [], uses = {};
+        for (const card of pool) {
+          const theme = cardTheme(card);
+          if ((uses[theme] || 0) >= maxPerTheme) continue;
+          picked.push(card); uses[theme] = (uses[theme] || 0) + 1;
+          if (picked.length === count) return picked;
+        }
+        for (const card of pool) { if (!picked.includes(card)) { picked.push(card); if (picked.length === count) break; } }
+        return picked;
+      }
+      const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+      const initial = () => ({ player: { name: 'Javi', number: 7, trait: 'personaje' }, stats: { goals: 0, assists: 0, yellows: 0, beers: 0, memes: 0, andres: 0, quality: 2, luck: 0, popularity: 0, wins: 0, mvps: 0 }, queue: [], index: 0, phase: 'league', cupAlive: true, cupRound: 0, history: [], matches: [], pendingMatch: null, matchShown: false, lastMatch: null, miniCleanup: null, finished: false });
+      let state = initial(), CARDS = null;
+      const SOUND_KEY = 'cfused_sound_v1';
+      const sound = { enabled: localStorage.getItem(SOUND_KEY) === '1', ctx: null };
+      const HISTORY_KEY = 'cfused_history_v1';
+      function emptyHistory() { return { seasons: 0, cups: 0, cupFinals: 0, totals: { goals: 0, assists: 0, yellows: 0, beers: 0, memes: 0, wins: 0, mvps: 0, quality: 0, luck: 0, popularity: 0, andres: 0 }, records: { goals: 0, assists: 0, yellows: 0, beers: 0, memes: 0, wins: 0, mvps: 0, ovr: 0 }, rareSeen: 0, ultraSeen: 0, historicSeen: 0, recent: [] } }
+      function getHistoryStats() { try { const raw = JSON.parse(localStorage.getItem(HISTORY_KEY) || 'null'); if (!raw) return emptyHistory(); const base = emptyHistory(); return { ...base, ...raw, totals: { ...base.totals, ...(raw.totals || {}) }, records: { ...base.records, ...(raw.records || {}) }, recent: Array.isArray(raw.recent) ? raw.recent : [] } } catch (e) { return emptyHistory() } }
+      function saveHistoryStats(v) { localStorage.setItem(HISTORY_KEY, JSON.stringify(v)); updateHistoryCount() }
+      function updateHistoryCount() { const el = $('historyCount'); if (el) { const h = getHistoryStats(); el.textContent = h.seasons ? `(${h.seasons})` : '' } }
+      function registerFinishedSeason(endingName, ovr) { if (state.finished) return; state.finished = true; const h = getHistoryStats(), s = state.stats, cupChampion = state.cupRound === 3 && state.cupAlive; h.seasons++; if (cupChampion) h.cups++; if (state.cupRound >= 2) h.cupFinals++; Object.keys(h.totals).forEach(k => h.totals[k] += (Number(s[k]) || 0));['goals', 'assists', 'yellows', 'beers', 'memes', 'wins', 'mvps'].forEach(k => h.records[k] = Math.max(h.records[k] || 0, Math.max(0, Number(s[k]) || 0))); h.records.ovr = Math.max(h.records.ovr || 0, ovr || 0); const discovered = state.history || []; h.rareSeen += discovered.filter(x => x.rarity === 'rare').length; h.ultraSeen += discovered.filter(x => x.rarity === 'ultra').length; h.historicSeen += discovered.filter(x => x.rarity === 'historic').length; h.recent.unshift({ name: state.player.name, number: state.player.number, date: new Date().toLocaleDateString('es-ES'), goals: Math.max(0, s.goals), assists: Math.max(0, s.assists), wins: Math.max(0, s.wins), mvps: Math.max(0, s.mvps || 0), ovr, cup: cupLabel(), ending: endingName }); h.recent = h.recent.slice(0, 8); saveHistoryStats(h) }
+      function renderHistoryStats() { const h = getHistoryStats(); if (!h.seasons) { $('historyContent').innerHTML = '<div class="historyEmpty">Todavía no has terminado ninguna temporada.</div>'; show('historyStats'); return } const avg = (v) => (v / h.seasons).toFixed(1); const summaries = [['Temporadas', h.seasons], ['Copas', h.cups], ['Goles', h.totals.goals], ['Asistencias', h.totals.assists], ['Victorias', h.totals.wins], ['MVPs', h.totals.mvps || 0], ['Cromos', Object.values(getPlayerAlbum()).reduce((a, b) => a + b, 0)], ['Raras vistas', h.rareSeen], ['Históricas', h.historicSeen]]; const records = [['⚽', h.records.goals, 'Goles en una temporada'], ['🅰️', h.records.assists, 'Asistencias en una temporada'], ['🏅', h.records.wins, 'Victorias en una temporada'], ['🌟', h.records.mvps || 0, 'MVPs en una temporada'], ['⭐', h.records.ovr, 'Mejor media'], ['🍺', h.records.beers, 'Cervezas en una temporada'], ['😂', h.records.memes, 'Memes en una temporada']]; $('historyContent').innerHTML = `<div class="historySummary">${summaries.map(([a, b]) => `<div class="historyBox"><b>${b}</b><span>${a}</span></div>`).join('')}</div><h3 style="color:var(--g);margin:18px 0 10px">Récords personales</h3><div class="recordGrid">${records.map(([i, v, t]) => `<div class="recordCard"><b>${i} ${v}</b><span>${t}</span></div>`).join('')}</div><h3 style="color:var(--g);margin:18px 0 10px">Promedios</h3><div class="historySummary"><div class="historyBox"><b>${avg(h.totals.goals)}</b><span>Goles / temporada</span></div><div class="historyBox"><b>${avg(h.totals.assists)}</b><span>Asist. / temporada</span></div><div class="historyBox"><b>${avg(h.totals.beers)}</b><span>Cervezas / temporada</span></div><div class="historyBox"><b>${avg(h.totals.memes)}</b><span>Memes / temporada</span></div></div><h3 style="color:var(--g);margin:18px 0 10px">Últimas temporadas</h3><div class="recentSeasons">${h.recent.map(r => `<div class="recentSeason"><div><b>${r.name} #${r.number} · OVR ${r.ovr}</b><small>${r.date} · ${r.ending}</small></div><div style="text-align:right;font-weight:900">⚽${r.goals} 🅰️${r.assists} 🌟${r.mvps || 0}<br><small>${r.cup}</small></div></div>`).join('')}</div>`; show('historyStats') }
+
+      function ensureAudio() {
+        if (!sound.ctx) { const C = window.AudioContext || window.webkitAudioContext; if (C) sound.ctx = new C(); }
+        if (sound.ctx?.state === 'suspended') sound.ctx.resume();
+        return sound.ctx;
+      }
+      function tone(freq = 440, duration = .12, type = 'sine', gain = .055, delay = 0) {
+        if (!sound.enabled) return; const ctx = ensureAudio(); if (!ctx) return;
+        const o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime + delay;
+        o.type = type; o.frequency.setValueAtTime(freq, t); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(gain, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + duration);
+        o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + duration + .03);
+      }
+      function noise(duration = .08, gain = .025, delay = 0) {
+        if (!sound.enabled) return; const ctx = ensureAudio(); if (!ctx) return; const len = Math.max(1, Math.floor(ctx.sampleRate * duration)), buf = ctx.createBuffer(1, len, ctx.sampleRate), data = buf.getChannelData(0); for (let i = 0; i < len; i++)data[i] = Math.random() * 2 - 1; const src = ctx.createBufferSource(), g = ctx.createGain(), t = ctx.currentTime + delay; src.buffer = buf; g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(.0001, t + duration); src.connect(g); g.connect(ctx.destination); src.start(t);
+      }
+      function playSound(name) {
+        if (!sound.enabled) return;
+        if (name === 'tap') tone(520, .055, 'square', .025);
+        else if (name === 'goal') { tone(523, .16, 'triangle', .065); tone(659, .16, 'triangle', .065, .12); tone(784, .26, 'triangle', .075, .24); }
+        else if (name === 'assist') { tone(440, .1, 'sine', .045); tone(660, .18, 'sine', .05, .09); }
+        else if (name === 'win') { [392, 494, 587, 784].forEach((f, i) => tone(f, .18, 'triangle', .06, i * .1)); }
+        else if (name === 'yellow') { tone(240, .1, 'sawtooth', .04); tone(190, .14, 'sawtooth', .04, .09); }
+        else if (name === 'beer') { tone(330, .08, 'sine', .035); tone(494, .12, 'sine', .04, .08); noise(.06, .018, .02); }
+        else if (name === 'meme') { tone(260, .11, 'square', .035); tone(180, .2, 'square', .035, .1); }
+        else if (name === 'bad') { tone(220, .16, 'sawtooth', .04); tone(155, .24, 'sawtooth', .04, .14); }
+        else if (name === 'rare') { [440, 554, 659, 880].forEach((f, i) => tone(f, .24, 'sine', .045, i * .09)); }
+        else if (name === 'ultra') { [330, 494, 659, 988].forEach((f, i) => tone(f, .32, 'triangle', .07, i * .11)); noise(.22, .02, .2); }
+        else if (name === 'whistle') { tone(1450, .11, 'sine', .035); tone(1750, .13, 'sine', .035, .08); }
+        else if (name === 'cup') { [392, 523, 659, 784].forEach((f, i) => tone(f, .26, 'triangle', .06, i * .13)); }
+      }
+      function soundForEffects(eff = {}, outcome = {}) {
+        if ((eff.goals || 0) > 0) return 'goal';
+        if ((eff.wins || 0) > 0) return 'win';
+        if ((eff.assists || 0) > 0) return 'assist';
+        if ((eff.yellows || 0) > 0) return 'yellow';
+        if ((eff.beers || 0) > 0) return 'beer';
+        if ((eff.memes || 0) > 0) return 'meme';
+        if (outcome.advances === false || Object.values(eff).some(v => v < 0)) return 'bad';
+        return 'tap';
+      }
+      function updateSoundButton() { const b = $('soundBtn'); if (!b) return; b.textContent = sound.enabled ? '🔊' : '🔇'; b.classList.toggle('off', !sound.enabled); b.setAttribute('aria-label', sound.enabled ? 'Silenciar sonido' : 'Activar sonido'); b.title = sound.enabled ? 'Silenciar sonido' : 'Activar sonido'; }
+      const PLAYER_CARDS_KEY = 'cfused_player_cards_v1';
+      const PLAYER_CARDS = [
+        { id: 'yeray', image: 'images/players/yeray.jpg', name: 'Yeray Lausín', pos: 'DEL', icon: '🐐', rarity: 'gold', base: 88, stats: [92, 94, 72, 90, 35, 82] },
+        { id: 'miki', image: 'images/players/miguel-angel.jpg', name: 'Miguel Ángel', pos: 'DEL', icon: '⚽', rarity: 'gold', base: 84, stats: [80, 88, 76, 81, 40, 79] },
+        { id: 'hugo', image: 'images/players/hugo.jpg', name: 'Hugo Golet', pos: 'POR', icon: '🧤', rarity: 'special', base: 85, stats: [55, 42, 78, 60, 91, 86] },
+        { id: 'juan_hat', image: 'images/players/juan-hattrick.jpg', name: 'Juan Hat-trick', pos: 'DEL', icon: '🎩', rarity: 'special', base: 87, stats: [79, 91, 74, 82, 45, 76] },
+        { id: 'juana', image: 'images/players/juana.jpg', name: 'Juana', pos: 'MCO', icon: '💇', rarity: 'legendary', base: 99, stats: [99, 99, 99, 99, 70, 99] },
+        { id: 'andres', image: 'images/players/andres.jpg', name: 'Andrés Míster', pos: 'MÍS', icon: '📢', rarity: 'special', base: 86, stats: [52, 45, 96, 60, 88, 93] },
+        { id: 'victor', image: 'images/players/victor.jpg', name: 'Víctor Pingüino', pos: 'DEF', icon: '🐧', rarity: 'silver', base: 75, stats: [68, 55, 70, 64, 79, 88] },
+        { id: 'raul', image: 'images/players/raul.jpg', name: 'Raúl Golet', pos: 'MC', icon: '😤', rarity: 'silver', base: 76, stats: [72, 67, 75, 73, 70, 82] },
+        { id: 'javi', image: 'images/players/javi.jpg', name: 'Javi Melendo', pos: 'MC', icon: '🕳️', rarity: 'silver', base: 74, stats: [70, 38, 79, 68, 73, 77] },
+        { id: 'chesus', image: 'images/players/chesus.jpg', name: 'Chesus Oroz', pos: 'DEL', icon: '🔥', rarity: 'gold', base: 79, stats: [77, 82, 71, 76, 47, 74] },
+        { id: 'pablo_m', image: 'images/players/pablo-munoz.jpg', name: 'Pablo Muñoz', pos: 'DEL', icon: '🎯', rarity: 'gold', base: 79, stats: [75, 82, 72, 74, 48, 76] },
+        { id: 'ander', image: 'images/players/ander.jpg', name: 'Ander Sánchez', pos: 'MC', icon: '🟡', rarity: 'silver', base: 77, stats: [76, 74, 78, 75, 68, 79] },
+        { id: 'diego', image: 'images/players/diego.jpg', name: 'Diego Gimeno', pos: 'DEF', icon: '🟨', rarity: 'silver', base: 77, stats: [73, 72, 75, 70, 79, 84] },
+        { id: 'juan_g', image: 'images/players/juan-gimeno.jpg', name: 'Juan Gimeno', pos: 'MC', icon: '🟢', rarity: 'silver', base: 77, stats: [75, 73, 77, 74, 70, 78] },
+        { id: 'juan_o', image: 'images/players/juan-oroz.jpg', name: 'Juan Oroz', pos: 'MC', icon: '🎭', rarity: 'silver', base: 77, stats: [74, 74, 76, 75, 69, 78] },
+        { id: 'jose', image: 'images/players/jose-angel.jpg', name: 'Jose Ángel', pos: 'DEL', icon: '⚡', rarity: 'silver', base: 77, stats: [78, 76, 71, 75, 55, 76] },
+        { id: 'oscar', image: 'images/players/oscar.jpg', name: 'Óscar Aibar', pos: 'DEF', icon: '🧱', rarity: 'silver', base: 74, stats: [66, 56, 70, 65, 78, 80] },
+        { id: 'ruben', image: 'images/players/ruben.jpg', name: 'Rubén Romero', pos: 'MC', icon: '🔧', rarity: 'silver', base: 73, stats: [69, 58, 73, 68, 72, 77] },
+        { id: 'miguel_m', image: 'images/players/miguel-melendo.jpg', name: 'Miguel Melendo', pos: '???', icon: '👻', rarity: 'legendary', base: 90, stats: [1, 1, 1, 1, 1, 1] },
+        { id: 'antonio', image: 'images/players/antonio.jpg', name: 'Antonio Velarte', pos: 'DEF', icon: '🛡️', rarity: 'silver', base: 72, stats: [65, 50, 69, 64, 76, 78] }
+      ];
+      function getPlayerAlbum() { try { return JSON.parse(localStorage.getItem(PLAYER_CARDS_KEY) || '{}') } catch (e) { return {} } }
+      function savePlayerAlbum(v) { localStorage.setItem(PLAYER_CARDS_KEY, JSON.stringify(v)); updatePlayerAlbumCount() }
+      function updatePlayerAlbumCount() { const a = getPlayerAlbum(), unique = Object.keys(a).length, total = PLAYER_CARDS.length; const el = $('playerAlbumCount'); if (el) el.textContent = `${unique}/${total}` }
+      function cardClass(c) { return c.rarity === 'legendary' ? 'legendary' : c.rarity === 'special' ? 'special' : c.rarity === 'silver' ? 'silver' : '' }
+      function renderPlayerCard(c, count = 0, locked = false) { const labels = ['RIT', 'TIR', 'PAS', 'REG', 'DEF', 'FÍS']; const media = locked ? `<div class="collectiblePhoto"><span class="photoFallback">❓</span></div>` : (c.image ? `<div class="collectiblePhoto"><img src="${c.image}" alt="${c.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="photoFallback" style="display:none">${c.icon}</span></div>` : `<div class="collectiblePhoto"><span class="photoFallback">${c.icon}</span></div>`); return `<div class="collectible ${cardClass(c)} ${locked ? 'locked' : ''}"><div class="collectibleTop"><div><div class="collectibleOvr">${locked ? '??' : c.base}</div><div class="collectiblePos">${locked ? '???' : c.pos}</div></div>${media}</div><div class="collectibleName">${locked ? 'Cromo no descubierto' : c.name}</div><div class="collectibleStats">${c.stats.map((v, i) => `<span>${locked ? '??' : v} ${labels[i]}</span>`).join('')}</div>${count ? `<div class="collectibleCount">x${count}</div>` : ''}</div>` }
+      function renderPlayerAlbum() { const a = getPlayerAlbum(); $('playerAlbumGrid').innerHTML = PLAYER_CARDS.map(c => renderPlayerCard(c, a[c.id] || 0, !a[c.id])).join(''); show('playerAlbum') }
+      function weightedPlayerCard() { let pool = []; for (const c of PLAYER_CARDS) { let w = c.rarity === 'legendary' ? 1 : c.rarity === 'special' ? 4 : c.rarity === 'gold' ? 8 : 14; if (c.id === 'javi' && state.stats.goals >= 3) w += 8; if (c.id === 'hugo' && state.history.some(x => /hugo/i.test((x.title || '') + ' ' + (x.text || '')))) w += 7; if (c.id === 'juan_hat' && state.stats.goals >= 3) w += 5; if (c.id === 'andres' && state.stats.andres >= 5) w += 6; for (let i = 0; i < w; i++)pool.push(c) } return pool.length ? pool[Math.floor(Math.random() * pool.length)] : PLAYER_CARDS[0] }
+      function awardPlayerCard() { const c = weightedPlayerCard(), a = getPlayerAlbum(); a[c.id] = (a[c.id] || 0) + 1; savePlayerAlbum(a); $('seasonReward').innerHTML = renderPlayerCard(c, a[c.id], false); return c }
+      const COLLECTION_KEY = 'cfused_collection_v1';
+      const getCollection = () => { try { return JSON.parse(localStorage.getItem(COLLECTION_KEY) || '[]') } catch (e) { return [] } };
+      const saveCollection = a => localStorage.setItem(COLLECTION_KEY, JSON.stringify([...new Set(a)]));
+      function allSpecialCards() { return [...(CARDS?.historic || []), ...(CARDS?.rare || []), ...(CARDS?.ultraRare || [])]; }
+      function updateCollectionCount() { const found = getCollection().length, total = allSpecialCards().length; const el = $('collectionCount'); if (el) el.textContent = `${found}/${total}`; }
+      function rarityLabel(e) { return e?.rarity === 'ultra' ? '🔴 CARTA ULTRARRARA' : e?.rarity === 'rare' ? '🔵 CARTA RARA' : e?.rarity === 'historic' ? '📼 MOMENTO HISTÓRICO' : ''; }
+      function applyRarityUI(e, cardId, badgeId) { const card = $(cardId), badge = $(badgeId); card.classList.remove('rareCard', 'ultraCard', 'historicCard'); badge.className = 'rarityBadge'; badge.textContent = ''; if (!e?.rarity) return; const cls = e.rarity === 'ultra' ? 'ultra' : e.rarity === 'historic' ? 'historic' : 'rare'; card.classList.add(cls === 'ultra' ? 'ultraCard' : cls === 'historic' ? 'historicCard' : 'rareCard'); badge.classList.add('show', cls); badge.textContent = rarityLabel(e); discoverCard(e); }
+      function discoverCard(e) { if (!e?.rarity || !e.id) return; playSound(e.rarity === 'ultra' ? 'ultra' : 'rare'); const col = getCollection(); if (col.includes(e.id)) return; col.push(e.id); saveCollection(col); updateCollectionCount(); const t = $('discoveryToast'); t.className = 'discoveryToast' + (e.rarity === 'ultra' ? ' ultra' : ''); const label = e.rarity === 'ultra' ? '✨ ULTRARRARA DESCUBIERTA' : e.rarity === 'historic' ? '📼 MOMENTO HISTÓRICO DESBLOQUEADO' : '🃏 CARTA RARA DESCUBIERTA'; t.innerHTML = `${label}<br><small>${e.title}</small>`; setTimeout(() => t.classList.add('show'), 120); setTimeout(() => t.classList.remove('show'), 2800); checkAchievements(false); }
+      function renderCollection() { const found = getCollection(), cards = allSpecialCards(); $('collectionGrid').innerHTML = cards.map(c => { const unlocked = found.includes(c.id); const type = c.rarity === 'ultra' ? 'Ultrarrara' : c.rarity === 'historic' ? 'Momento histórico' : 'Rara'; return `<div class="collectionCard ${unlocked ? '' : 'locked'}"><div class="collectionIcon">${unlocked ? (c.emoji || '🃏') : '❓'}</div><div class="collectionInfo"><b>${unlocked ? c.title : type}</b><span>${unlocked ? type : 'Aún no descubierto'}</span></div></div>` }).join('') || '<p>No hay cartas especiales configuradas.</p>'; show('collection'); }
+      const ACHIEVEMENT_KEY = 'cfused_achievements_v1';
+      const ACHIEVEMENTS = [
+        { id: 'first_goal', icon: '⚽', title: 'Primer gol', desc: 'Marca al menos un gol en una temporada.', test: (s, ctx) => s.goals >= 1 },
+        { id: 'hat_trick', icon: '🎩', title: 'Hat-trick moral', desc: 'Termina una temporada con 3 goles o más.', test: (s, ctx) => ctx.final && s.goals >= 3 },
+        { id: 'pichichi', icon: '🐐', title: 'Pichichi del Used', desc: 'Marca 15 goles en una temporada.', test: (s, ctx) => ctx.final && s.goals >= 15 },
+        { id: 'assistant', icon: '🎯', title: 'El socio de todos', desc: 'Consigue 10 asistencias en una temporada.', test: (s, ctx) => ctx.final && s.assists >= 10 },
+        { id: 'fair_play', icon: '🤍', title: 'Fair Play sospechoso', desc: 'Acaba sin amarillas y con calidad alta.', test: (s, ctx) => ctx.final && s.yellows === 0 && s.quality >= 8 },
+        { id: 'carnicero', icon: '🟨', title: 'Lateral sin derechos', desc: 'Acumula 6 amarillas en una temporada.', test: (s, ctx) => s.yellows >= 6 },
+        { id: 'third_time', icon: '🍺', title: 'MVP del tercer tiempo', desc: 'Llega a 20 cervezas en una temporada.', test: (s, ctx) => s.beers >= 20 },
+        { id: 'meme_king', icon: '😂', title: 'Rey del meme', desc: 'Acumula 20 memes en una temporada.', test: (s, ctx) => s.memes >= 20 },
+        { id: 'andres_man', icon: '❤️', title: 'Hombre de Andrés', desc: 'Alcanza 12 puntos de relación con Andrés.', test: (s, ctx) => s.andres >= 12 },
+        { id: 'andres_headache', icon: '📢', title: 'Dolor de cabeza de Andrés', desc: 'Baja a -6 de relación con Andrés.', test: (s, ctx) => s.andres <= -6 },
+        { id: 'cup_champion', icon: '🏆', title: 'Campeón de Copa', desc: 'Gana la Copa del CF Used.', test: (s, ctx) => ctx.final && ctx.cupChampion },
+        { id: 'rare_hunter', icon: '🔵', title: 'Cazador de raras', desc: 'Descubre 5 cartas raras.', test: (s, ctx) => ctx.rareCount >= 5 },
+        { id: 'historian', icon: '📼', title: 'Historiador del Used', desc: 'Descubre 8 momentos históricos.', test: (s, ctx) => ctx.historicCount >= 8 },
+        { id: 'ultra', icon: '🔴', title: 'Esto no podía pasar', desc: 'Descubre una carta ultrarrara.', test: (s, ctx) => ctx.ultraCount >= 1 },
+        { id: 'legend', icon: '🌟', title: 'Leyenda absoluta', desc: 'Gana la Copa, suma 8 victorias y marca 12 goles.', test: (s, ctx) => ctx.final && ctx.cupChampion && s.wins >= 8 && s.goals >= 12 }
+      ];
+      const getAchievements = () => { try { return JSON.parse(localStorage.getItem(ACHIEVEMENT_KEY) || '[]') } catch (e) { return [] } };
+      const saveAchievements = a => localStorage.setItem(ACHIEVEMENT_KEY, JSON.stringify([...new Set(a)]));
+      function achievementContext(final = false) { const found = getCollection(), special = allSpecialCards(); return { final, cupChampion: state.cupRound === 3 && state.cupAlive, rareCount: special.filter(c => c.rarity === 'rare' && found.includes(c.id)).length, historicCount: special.filter(c => c.rarity === 'historic' && found.includes(c.id)).length, ultraCount: special.filter(c => c.rarity === 'ultra' && found.includes(c.id)).length }; }
+      function updateAchievementCount() { const el = $('achievementCount'); if (el) el.textContent = `${getAchievements().length}/${ACHIEVEMENTS.length}`; }
+      function showAchievementToast(a) { playSound('win'); const t = $('achievementToast'); if (!t) return; t.innerHTML = `🏆 LOGRO DESBLOQUEADO<br><small>${a.icon} ${a.title}</small>`; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2600); }
+      function checkAchievements(final = false) { const unlocked = getAchievements(), ctx = achievementContext(final); let changed = false; for (const a of ACHIEVEMENTS) { if (!unlocked.includes(a.id) && a.test(state.stats, ctx)) { unlocked.push(a.id); changed = true; showAchievementToast(a); break; } } if (changed) saveAchievements(unlocked); updateAchievementCount(); }
+      function renderAchievements() { const unlocked = getAchievements(); $('achievementGrid').innerHTML = ACHIEVEMENTS.map(a => { const ok = unlocked.includes(a.id); return `<div class="achievementCard ${ok ? '' : 'locked'}"><div class="achievementIcon">${ok ? a.icon : '🔒'}</div><div class="achievementInfo"><b>${ok ? a.title : 'Logro oculto'}</b><span>${ok ? a.desc : 'Sigue jugando para descubrirlo.'}</span></div></div>` }).join(''); show('achievements'); }
+
+      async function loadCards() {
+        try {
+          const r = await fetch('cards.json', { cache: 'no-store' });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          CARDS = await r.json();
+          updateCollectionCount();
+          updateAchievementCount();
+          updatePlayerAlbumCount();
+          $('startBtn').disabled = false;
+          $('startBtn').textContent = 'Empezar temporada';
+        }
+        catch (e) {
+          updateCollectionCount();
+          updateAchievementCount();
+          updatePlayerAlbumCount();
+          $('startBtn').disabled = true;
+          $('startBtn').textContent = 'No se pudo cargar cards.json';
+          document.querySelector('.tag').textContent = 'Abre el proyecto mediante iniciar-juego.bat o un servidor local. Los navegadores bloquean la lectura de JSON desde file://.';
+          console.error(e)
+        }
+      }
+      function buildQueue() {
+        const league = pickDiverse(CARDS.league, 13, 1);
+        const specials = pickDiverse(CARDS.special, 3, 1);
+        const minis = shuffle(CARDS.minigames?.league || []).slice(0, 4);
+        const extras = shuffle([...specials, ...minis]);
+        const positions = [2, 4, 6, 8, 10, 12, 14];
+        extras.forEach((e, i) => league.splice(Math.min(positions[i] + i, league.length), 0, e));
+        let queue = league.slice(0, 20);
+
+        // Cartas especiales: normalmente aparece al menos una por temporada.
+        // Las ultrarraras siguen siendo excepcionales y las raras pueden aparecer dos veces.
+        const insertedIds = new Set();
+        const insertSpecial = (card) => {
+          if (!card || insertedIds.has(card.id)) return;
+          const available = [];
+          for (let i = 2; i < queue.length - 1; i++) {
+            if (!queue[i]?.rarity) available.push(i);
+          }
+          if (!available.length) return;
+          const pos = rnd(available);
+          queue.splice(pos, 1, card);
+          insertedIds.add(card.id);
+        };
+
+        // Momentos históricos reales: suelen aparecer en la mayoría de temporadas.
+        if (Math.random() < 0.68 && CARDS.historic?.length) {
+          insertSpecial(rnd(CARDS.historic));
+        }
+        if (Math.random() < 0.18 && CARDS.historic?.length) {
+          const historicCandidates = CARDS.historic.filter(card => !insertedIds.has(card.id));
+          if (historicCandidates.length) insertSpecial(rnd(historicCandidates));
+        }
+
+        const mainRoll = Math.random();
+        if (mainRoll < 0.06 && CARDS.ultraRare?.length) {
+          insertSpecial(rnd(CARDS.ultraRare));
+        } else if (mainRoll < 0.82 && CARDS.rare?.length) {
+          insertSpecial(rnd(CARDS.rare));
+        }
+
+        // En aproximadamente una de cada cuatro temporadas aparece una segunda rara.
+        if (Math.random() < 0.25 && CARDS.rare?.length) {
+          const candidates = CARDS.rare.filter(card => !insertedIds.has(card.id));
+          if (candidates.length) insertSpecial(rnd(candidates));
+        }
+
+        return queue;
+      }
+      function traitBonus() { const s = state.stats; if (state.player.trait === 'personaje') { s.memes += 2; s.popularity += 1 } if (state.player.trait === 'bueno') { s.quality += 2; s.goals += 1 } if (state.player.trait === 'fiestero') { s.beers += 2; s.popularity += 2; s.quality -= 1 } if (state.player.trait === 'currante') { s.andres += 2; s.quality += 1 } }
+      function apply(eff) { Object.entries(eff || {}).forEach(([k, v]) => state.stats[k] = (state.stats[k] || 0) + v); checkAchievements(false) }
+      function updateLiveStats(changed = {}) { const map = { goals: 'liveGoals', assists: 'liveAssists', yellows: 'liveYellows', beers: 'liveBeers', memes: 'liveMemes', wins: 'liveWins', mvps: 'liveMvps', quality: 'liveQuality', luck: 'liveLuck', popularity: 'livePopularity', andres: 'liveAndres' }; const allowNegative = new Set(['quality', 'luck', 'popularity', 'andres']); Object.entries(map).forEach(([key, id]) => { const el = $(id); const value = state.stats[key] || 0; el.textContent = allowNegative.has(key) ? value : Math.max(0, value); const box = el.closest('.liveStat'); if (changed[key]) { box.classList.remove('bump'); void box.offsetWidth; box.classList.add('bump'); setTimeout(() => box.classList.remove('bump'), 380) } }) }
+      function showLiveStats(on = true) { $('liveStats').classList.toggle('show', on); if (on) updateLiveStats() }
+      function render() {
+        const e = state.queue[state.index];
+        if (!e) { startCup(); return }
+        $('bar').style.width = `${Math.min(100, (state.phase === 'league' ? state.index : 20 + state.cupRound) / 23 * 100)}%`;
+        if (e.type && e.type !== 'choice') { renderMinigame(e); return }
+        applyRarityUI(e, 'eventCard', 'eventRarity');
+        $('round').textContent = e.category;
+        $('count').textContent = state.phase === 'cup' ? `${state.cupRound + 1}/3 · Copa` : `${state.index + 1}/${state.queue.length} · Liga`;
+        $('eventEmoji').textContent = e.emoji;
+        $('eventTitle').textContent = e.title;
+        $('eventText').textContent = rnd(e.texts);
+        $('choices').innerHTML = '';
+        e.choices.forEach(c => { const b = document.createElement('button'); b.className = 'choice'; b.textContent = c.label; b.onclick = () => choose(c, e); $('choices').appendChild(b) });
+        show('event');
+      }
+      function renderMinigame(e) {
+        if (state.miniCleanup) { state.miniCleanup(); state.miniCleanup = null }
+        $('miniCategory').textContent = e.category || 'Minijuego';
+        $('miniCount').textContent = state.phase === 'cup' ? `${state.cupRound + 1}/3 · Copa` : `${state.index + 1}/${state.queue.length} · Liga`;
+        $('miniEmoji').textContent = e.emoji || '🎮'; $('miniTitle').textContent = e.title; $('miniText').textContent = rnd(e.texts || [e.text || '']);
+        $('miniArea').innerHTML = ''; applyRarityUI(e, 'miniCard', 'miniRarity'); show('minigame');
+        if (e.type === 'timing_shot') runTimingShot(e);
+        else if (e.type === 'penalty') runPenalty(e);
+        else if (e.type === 'beer_timing') runBeerTiming(e);
+        else if (e.type === 'memory_acta') runMemoryActa(e);
+        else if (e.type === 'rapid_tap') runRapidTap(e);
+        else if (e.type === 'find_bibs') runFindBibs(e);
+        else if (e.type === 'crossbar') runCrossbar(e);
+        else if (e.type === 'swipe_dribble') runSwipeDribble(e);
+        else if (e.type === 'roulette') runRoulette(e);
+      }
+      function finishMinigame(e, key, extraEffects = {}) {
+        if (state.miniCleanup) { state.miniCleanup(); state.miniCleanup = null }
+        const pool = e.results[key] || e.results.fail; const outcome = Array.isArray(pool) ? rnd(pool) : pool;
+        const eff = { ...(outcome.effects || {}) };
+        Object.entries(extraEffects).forEach(([k, v]) => { eff[k] = (eff[k] || 0) + v });
+        if (state.phase === 'cup') {
+          const advances = outcome.advances !== false;
+          if (advances) state.cupRound++; else state.cupAlive = false;
+        }
+        apply(eff); updateLiveStats(eff); playSound(soundForEffects(eff, outcome)); state.history.push({ title: outcome.title, text: outcome.text, category: e.category }); queueMatchSimulation(e, eff, outcome);
+        $('resEmoji').textContent = outcome.emoji || e.emoji || '🎮'; $('resTitle').textContent = outcome.title; $('resText').textContent = outcome.text; renderChips(eff); show('result');
+      }
+      function renderChips(eff) {
+        $('chips').innerHTML = ''; const labels = { goals: '⚽ Goles', assists: '🅰️ Asistencias', yellows: '🟨 Amarillas', beers: '🍺 Cervezas', memes: '😂 Memes', andres: '❤️ Andrés', quality: '🎯 Calidad', luck: '🍀 Suerte', popularity: '📣 Fama', wins: '🏅 Victorias' };
+        Object.entries(eff).filter(([, v]) => v).forEach(([k, v]) => { const x = document.createElement('span'); x.className = 'chip'; x.textContent = `${labels[k] || k} ${v > 0 ? '+' : ''}${v}`; $('chips').appendChild(x) });
+      }
+      function runTimingShot(e) {
+        $('miniArea').innerHTML = `<div class="goal"><div class="aim"></div><div class="keeper">🧤</div></div><div class="powerTrack"><div class="powerSweet"></div><div class="powerNeedle"></div></div><div class="miniTimer">Pulsa cuando el indicador esté en amarillo</div><button class="btn primary miniButton">Chutar</button>`;
+        const area = $('miniArea'), aim = area.querySelector('.aim'), needle = area.querySelector('.powerNeedle'), keeper = area.querySelector('.keeper'); let start = performance.now(), raf, done = false;
+        const loop = t => { const x = (Math.sin((t - start) / 360) + 1) / 2; needle.style.left = `calc(${x * 100}% - 4px)`; aim.style.left = `${8 + x * 78}%`; keeper.style.left = `${18 + ((Math.sin((t - start) / 520) + 1) / 2) * 64}%`; raf = requestAnimationFrame(loop) }; raf = requestAnimationFrame(loop);
+        area.querySelector('button').onclick = () => { if (done) return; done = true; const x = parseFloat(needle.style.left) || 0; const pct = (Math.sin((performance.now() - start) / 360) + 1) / 2 * 100; const distance = Math.abs(pct - 71); finishMinigame(e, distance < 8 ? 'perfect' : distance < 22 ? 'good' : 'fail') };
+        state.miniCleanup = () => cancelAnimationFrame(raf);
+      }
+      function runPenalty(e) {
+        $('miniArea').innerHTML = `<div class="goal"><div class="keeper">🧤</div></div><div class="choices"><button class="choice" data-side="left">⬅️ Izquierda</button><button class="choice" data-side="center">⬆️ Centro</button><button class="choice" data-side="right">➡️ Derecha</button></div>`;
+        const area = $('miniArea'), keeper = area.querySelector('.keeper'); let start = performance.now(), raf; const loop = t => { const x = 18 + ((Math.sin((t - start) / 390) + 1) / 2) * 64; keeper.style.left = `${x}%`; raf = requestAnimationFrame(loop) }; raf = requestAnimationFrame(loop);
+        area.querySelectorAll('[data-side]').forEach(b => b.onclick = () => { const shot = b.dataset.side; const save = rnd(['left', 'center', 'right']); keeper.style.left = save === 'left' ? '22%' : save === 'right' ? '78%' : '50%'; const scored = shot !== save; setTimeout(() => finishMinigame(e, scored ? 'goal' : 'saved'), 320) }); state.miniCleanup = () => cancelAnimationFrame(raf);
+      }
+      function runBeerTiming(e) {
+        $('miniArea').innerHTML = `<div class="beerWrap"><div class="glass"><div class="beerLiquid"></div><div class="beerLine"></div></div></div><div class="miniTimer">Mantén pulsado para servir. Suelta en la línea.</div><button class="btn primary miniButton">Mantener para servir</button>`;
+        const area = $('miniArea'), liquid = area.querySelector('.beerLiquid'), btn = area.querySelector('button'); let level = 0, interval = null, done = false;
+        const start = () => { if (done || interval) return; interval = setInterval(() => { level = Math.min(100, level + 1.35); liquid.style.height = level + '%'; if (level >= 100) stop() }, 28) };
+        const stop = () => { if (done) return; clearInterval(interval); interval = null; done = true; finishMinigame(e, level >= 68 && level <= 78 ? 'perfect' : level >= 55 && level <= 88 ? 'good' : 'fail') };
+        btn.addEventListener('pointerdown', start); btn.addEventListener('pointerup', stop); btn.addEventListener('pointerleave', () => { if (interval) stop() }); state.miniCleanup = () => clearInterval(interval);
+      }
+
+      function runMemoryActa(e) {
+        const p = rnd(e.prompts); let timer = null, started = false;
+        $('miniArea').innerHTML = `<div class="memoryBoard"><div class="miniTimer">Reto de memoria</div><div class="memoryScore">📋</div></div><div class="miniTimer">Pulsa empezar. Tendrás 2 segundos para memorizar el acta.</div><button class="btn primary miniButton startMemory">Empezar</button>`;
+        const startBtn = $('miniArea').querySelector('.startMemory');
+        startBtn.onclick = () => {
+          if (started) return; started = true;
+          $('miniArea').innerHTML = `<div class="memoryBoard"><div class="miniTimer">Memoriza</div><div class="memoryScore">${p.display}</div></div><div class="miniTimer">Desaparece en 2 segundos…</div>`;
+          timer = setTimeout(() => {
+            const ans = shuffle(p.answers);
+            $('miniArea').innerHTML = `<div class="miniTimer">¿Qué aparecía?</div><div class="memoryAnswers">${ans.map((a, i) => `<button class="choice" data-i="${i}">${a.label}</button>`).join('')}</div>`;
+            $('miniArea').querySelectorAll('[data-i]').forEach((b, i) => b.onclick = () => finishMinigame(e, ans[i].correct ? 'perfect' : 'fail'));
+          }, 2000);
+        };
+        state.miniCleanup = () => { if (timer) clearTimeout(timer) };
+      }
+      function runRapidTap(e) {
+        const target = e.target || 12, seconds = e.seconds || 4; let n = 0, left = seconds, done = false, started = false, interval;
+        $('miniArea').innerHTML = `<div class="tapArena"><div class="miniTimer">${e.instructions || `Consigue ${target} pulsaciones antes de que termine el tiempo.`}</div><div class="tapTime">${left.toFixed(1)} s</div><div class="tapCount">0 / ${target}</div><div class="tapBar"><div class="tapFill"></div></div><button class="btn primary miniButton startRapid">Empezar</button><button class="btn primary miniButton tapRapid" hidden>${e.buttonLabel || '¡Pulsa!'}</button></div>`;
+        const area = $('miniArea'), count = area.querySelector('.tapCount'), fill = area.querySelector('.tapFill'), time = area.querySelector('.tapTime'), startBtn = area.querySelector('.startRapid'), tapBtn = area.querySelector('.tapRapid');
+        const finishRapid = () => { if (done) return; done = true; clearInterval(interval); finishMinigame(e, n >= target ? 'perfect' : n >= Math.ceil(target * .65) ? 'good' : 'fail') };
+        const start = () => { if (started) return; started = true; startBtn.hidden = true; tapBtn.hidden = false; tapBtn.focus(); interval = setInterval(() => { left -= .1; time.textContent = `${Math.max(0, left).toFixed(1)} s`; if (left <= 0) finishRapid() }, 100) };
+        startBtn.onclick = start;
+        tapBtn.onclick = () => { if (!started || done) return; n++; count.textContent = `${n} / ${target}`; fill.style.width = `${Math.min(100, n / target * 100)}%`; if (n >= target) finishRapid() };
+        state.miniCleanup = () => clearInterval(interval);
+      }
+
+      function runFindBibs(e) {
+        const total = e.total || 9; let timer = null, done = false;
+        $('miniArea').innerHTML = `<div class="miniStartPanel"><div class="miniTimer">Tendrás ${e.seconds || 5} segundos para encontrar la bolsa con los petos.</div><button class="btn primary miniButton startFind">Empezar</button></div>`;
+        $('miniArea').querySelector('.startFind').onclick = () => {
+          const correct = Math.floor(Math.random() * total); let left = e.seconds || 5;
+          $('miniArea').innerHTML = `<div class="miniTimer findTime">${left.toFixed(1)} s</div><div class="touchGrid">${Array.from({ length: total }, (_, i) => `<button class="touchItem" data-i="${i}" aria-label="Bolsa ${i + 1}">🎒</button>`).join('')}</div>`;
+          const finish = (key) => { if (done) return; done = true; clearInterval(timer); finishMinigame(e, key) };
+          $('miniArea').querySelectorAll('[data-i]').forEach(b => b.onclick = () => finish(Number(b.dataset.i) === correct ? 'perfect' : 'fail'));
+          timer = setInterval(() => { left -= .1; const t = $('miniArea').querySelector('.findTime'); if (t) t.textContent = `${Math.max(0, left).toFixed(1)} s`; if (left <= 0) finish('fail') }, 100);
+        };
+        state.miniCleanup = () => { if (timer) clearInterval(timer) };
+      }
+      function runCrossbar(e) {
+        let started = false, finished = false, shot = 0, hits = 0, locked = false;
+        const zoneNames = ['izquierda', 'centro', 'derecha'];
+        $('miniArea').innerHTML = `<div class="miniStartPanel"><div class="miniTimer">Tienes tres disparos. Elige izquierda, centro o derecha e intenta golpear el larguero.</div><button class="btn primary miniButton startCross">Empezar</button></div>`;
+
+        const endGame = () => {
+          if (finished) return;
+          finished = true;
+          const key = hits === 3 ? 'perfect' : hits >= 1 ? 'good' : 'fail';
+          setTimeout(() => finishMinigame(e, key), 650);
+        };
+
+        const draw = () => {
+          $('miniArea').innerHTML = `
+      <div class="crossbarShotsGame">
+        <div class="shotScore"><span>Tiro <b>${shot + 1}/3</b></span><span>Aciertos <b>${hits}</b></span></div>
+        <div class="shotGoal">
+          <div class="shotBar"><span></span><span></span><span></span></div>
+          <div class="shotNet"></div>
+          <div class="shotBall">⚽</div>
+        </div>
+        <div class="shotMessage">Elige una zona</div>
+        <div class="shotChoices">
+          <button class="shotZone" data-zone="0">⬅️<small>Izquierda</small></button>
+          <button class="shotZone" data-zone="1">⬆️<small>Centro</small></button>
+          <button class="shotZone" data-zone="2">➡️<small>Derecha</small></button>
+        </div>
+      </div>`;
+
+          const area = $('miniArea');
+          area.querySelectorAll('.shotZone').forEach(btn => btn.onclick = () => takeShot(Number(btn.dataset.zone)));
+        };
+
+        const takeShot = (chosen) => {
+          if (locked || finished) return;
+          locked = true;
+          const area = $('miniArea');
+          const target = Math.floor(Math.random() * 3);
+          const hit = chosen === target;
+          if (hit) hits++;
+
+          area.querySelectorAll('.shotZone').forEach(b => b.disabled = true);
+          const barParts = area.querySelectorAll('.shotBar span');
+          if (barParts[target]) barParts[target].classList.add('target');
+          if (barParts[chosen]) barParts[chosen].classList.add(hit ? 'hit' : 'miss');
+
+          const ball = area.querySelector('.shotBall');
+          ball.classList.add(`to-${chosen}`, hit ? 'ballHit' : 'ballMiss');
+          area.querySelector('.shotMessage').textContent = hit
+            ? rnd(['🔔 ¡LARGUERO!', '🎯 ¡Le has dado!', '💥 Suena el larguero'])
+            : `❌ El larguero estaba en ${zoneNames[target]}`;
+
+          setTimeout(() => {
+            shot++;
+            locked = false;
+            if (shot >= 3) endGame(); else draw();
+          }, 900);
+        };
+
+        $('miniArea').querySelector('.startCross').onclick = () => {
+          if (started) return;
+          started = true;
+          draw();
+        };
+        state.miniCleanup = () => { };
+      }
+      function runSwipeDribble(e) {
+        let started = false, down = null, done = false, required = rnd(['left', 'right', 'nutmeg']);
+        $('miniArea').innerHTML = `<div class="miniStartPanel"><div class="miniTimer">Pulsa empezar. Mira por dónde entra el defensa y desliza en la dirección correcta.</div><button class="btn primary miniButton startSwipe">Empezar</button></div>`;
+        $('miniArea').querySelector('.startSwipe').onclick = () => {
+          if (started) return; started = true;
+          const label = required === 'left' ? '⬅️ Izquierda' : required === 'right' ? '➡️ Derecha' : '⬆️ Caño';
+          $('miniArea').innerHTML = `<div class="swipeArena"><div class="swipeTrail"></div><div class="swipePlayer">⚽</div><div class="swipeDefender">🧍</div><div class="swipeArrow">${label}</div></div><div class="gestureHint">Desliza dentro del campo</div>`;
+          const arena = $('miniArea').querySelector('.swipeArena');
+          const finish = (key) => { if (done) return; done = true; finishMinigame(e, key) };
+          arena.addEventListener('pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY }; arena.setPointerCapture?.(ev.pointerId) });
+          arena.addEventListener('pointerup', ev => { if (!down) return; const dx = ev.clientX - down.x, dy = ev.clientY - down.y; let move = ''; if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 38) move = dx < 0 ? 'left' : 'right'; else if (dy < -34) move = 'nutmeg'; finish(move === required ? 'perfect' : move ? 'fail' : 'fail') });
+        };
+        state.miniCleanup = () => { };
+      }
+      function runRoulette(e) {
+        let down = null, spinning = false;
+        $('miniArea').innerHTML = `<div class="miniStartPanel"><div class="miniTimer">Pulsa empezar y desliza la ruleta con fuerza.</div><button class="btn primary miniButton startRoulette">Empezar</button></div>`;
+        $('miniArea').querySelector('.startRoulette').onclick = () => {
+          $('miniArea').innerHTML = `<div class="rouletteWrap"><div class="roulettePointer">▼</div><div class="rouletteWheel" role="button" aria-label="Ruleta del Used"></div></div><div class="gestureHint">Desliza rápido hacia cualquier lado</div>`;
+          const wheel = $('miniArea').querySelector('.rouletteWheel');
+          wheel.addEventListener('pointerdown', ev => { if (spinning) return; down = { x: ev.clientX, y: ev.clientY, t: performance.now() }; wheel.setPointerCapture?.(ev.pointerId) });
+          wheel.addEventListener('pointerup', ev => { if (spinning || !down) return; const distance = Math.hypot(ev.clientX - down.x, ev.clientY - down.y), elapsed = Math.max(1, performance.now() - down.t); if (distance < 35) return; spinning = true; const force = Math.min(1.8, distance / elapsed); const turns = 4 + Math.floor(force * 4) + Math.floor(Math.random() * 3); const angle = turns * 360 + Math.floor(Math.random() * 360); wheel.style.transform = `rotate(${angle}deg)`; setTimeout(() => { const r = Math.random(); finishMinigame(e, r < .28 ? 'perfect' : r < .72 ? 'good' : 'fail') }, 2350) });
+        };
+        state.miniCleanup = () => { };
+      }
+
+
+      const MATCH_OPPONENTS = ['Caf F7 Team', 'Fersa FC', 'Los Caris', 'Olympique Zaragoza', 'Bodegas Javier FC', 'Instafoodzgz', 'Parandas FC', 'The Artistic Project F.C', 'adidas FC', 'Los Mocorratones - Mononoke', 'Wisskleta FC', 'Deloitte', 'CRYPTO PUNKS FC'];
+      const USED_SCORERS = ['Yeray Lausín', 'Miguel Ángel Blanco', 'Chesus Oroz', 'Pablo Muñoz', 'Ander Sánchez', 'Diego Gimeno', 'Jose Ángel Pardos', 'Juan Gimeno', 'Juan Oroz', 'Raúl Golet', 'Hugo Golet', 'Óscar Aibar', 'Rubén Romero', 'Víctor Vicente'];
+      const NON_MATCH_IDS = new Set(['convocatoria', 'aparcamiento', 'acta', 'resultado_grupo', 'hora_cambiante', 'foto_previa', 'foto_alineacion', 'botas_nuevas', 'cambio_camiseta', 'cordones', 'arbitro_nombre', 'max_asistencia', 'cero_goles', 'amarillas', 'mocorratones_nombre', 'partido_22', 'partido_20']);
+      const NON_MATCH_MINIS = new Set(['beer_timing', 'memory_acta', 'rapid_tap', 'find_bibs', 'roulette']);
+      function isMatchEvent(e) {
+        if (state.phase === 'cup') return true;
+        if (!e) return false;
+        if (NON_MATCH_IDS.has(e.id)) return false;
+        if (e.type && e.type !== 'choice' && NON_MATCH_MINIS.has(e.type)) return false;
+        const hay = `${e.id || ''} ${e.title || ''} ${(e.texts || []).join(' ')}`.toLowerCase();
+        if (/sonia|richard|fiestas|grupo|whatsapp|convocatoria|aparcamiento|acta|foto/.test(hay)) return false;
+        return true;
+      }
+      function inferOpponent(e, outcome = {}) {
+        if (outcome.matchOpponent) return outcome.matchOpponent;
+        if (e?.matchOpponent) return e.matchOpponent;
+        const t = `${e?.id || ''} ${e?.title || ''} ${(e?.texts || []).join(' ')}`.toLowerCase();
+        const map = [['caf', 'Caf F7 Team'], ['fersa', 'Fersa FC'], ['crypto', 'CRYPTO PUNKS FC'], ['deloitte', 'Deloitte'], ['mocorratones', 'Los Mocorratones - Mononoke'], ['caris', 'Los Caris'], ['olympique', 'Olympique Zaragoza'], ['bodegas', 'Bodegas Javier FC'], ['instafood', 'Instafoodzgz'], ['parandas', 'Parandas FC'], ['adidas', 'adidas FC'], ['wisskleta', 'Wisskleta FC']];
+        const hit = map.find(([k]) => t.includes(k));
+        return hit ? hit[1] : rnd(MATCH_OPPONENTS);
+      }
+      function inferVenue(e, outcome = {}) {
+        if (outcome.matchVenue) return outcome.matchVenue;
+        if (e?.matchVenue) return e.matchVenue;
+        const t = `${e?.title || ''} ${(e?.texts || []).join(' ')}`.toLowerCase();
+        if (t.includes('fleta')) return 'Campo del Fleta';
+        if (t.includes('valdefierro')) return 'Campo de Valdefierro';
+        if (t.includes('federación') || t.includes('federacion')) return 'Campos de Federación';
+        return rnd(['Campo del Fleta', 'Campo de Valdefierro', 'Campos de Federación']);
+      }
+      function inferOutcomeResult(outcome = {}) {
+        const result = outcome.matchResult;
+        return ['win', 'draw', 'loss', 'none'].includes(result) ? result : 'none';
+      }
+      function buildMatchSimulation(payload) {
+        const { event: e, effects: eff = {}, outcome = {} } = payload;
+        const opponent = inferOpponent(e, outcome), venue = inferVenue(e, outcome), cup = payload.phase === 'cup';
+        const playerGoals = Math.max(0, eff.goals || 0), playerAssists = Math.max(0, eff.assists || 0);
+        const indicatedResult = inferOutcomeResult(outcome);
+        const strength = clamp(.43 + (state.stats.quality || 0) * .018 + (state.stats.luck || 0) * .012 + (playerGoals * .12) + (playerAssists * .05), .2, .88);
+        let usedGoals = Math.max(playerGoals, Math.floor(Math.random() * 4));
+        let rivalGoals = Math.floor(Math.random() * 4);
+        if (indicatedResult === 'win') usedGoals = Math.max(usedGoals, rivalGoals + 1, playerGoals, 1);
+        else if (indicatedResult === 'loss') rivalGoals = Math.max(rivalGoals, usedGoals + 1, 1);
+        else if (indicatedResult === 'draw') { const tied = Math.max(usedGoals, rivalGoals, playerGoals); usedGoals = tied; rivalGoals = tied }
+        else return null;
+        if (cup && usedGoals === rivalGoals) { if (indicatedResult === 'loss') rivalGoals++; else usedGoals++ }
+        usedGoals = clamp(usedGoals, 0, 7); rivalGoals = clamp(rivalGoals, 0, 7);
+        const usedScorers = [];
+        for (let i = 0; i < playerGoals && usedScorers.length < usedGoals; i++)usedScorers.push(state.player.name);
+        while (usedScorers.length < usedGoals) {
+          const weighted = Math.random() < .42 ? 'Yeray Lausín' : Math.random() < .28 ? 'Miguel Ángel Blanco' : rnd(USED_SCORERS);
+          usedScorers.push(weighted);
+        }
+        const rivalScorers = ['Delantero rival', 'El 10 rival', 'Gol en propia', 'Segundo palo', 'Rebote imposible'];
+        const events = []; let minute = 4;
+        usedScorers.forEach(name => { minute += Math.floor(Math.random() * 15) + 2; events.push({ minute: Math.min(48, minute), name, team: 'USED' }) });
+        for (let i = 0; i < rivalGoals; i++) { minute = Math.floor(Math.random() * 46) + 2; events.push({ minute, name: rnd(rivalScorers), team: opponent }) }
+        events.sort((a, b) => a.minute - b.minute);
+        let verdict = usedGoals > rivalGoals ? 'Victoria del CF Used' : usedGoals < rivalGoals ? 'Derrota del CF Used' : 'Empate del CF Used';
+        if (cup) verdict = usedGoals > rivalGoals ? 'El CF Used pasa de ronda' : 'El CF Used queda eliminado';
+        let contribution = 'Partido discreto, pero al menos no sales en el vídeo de los fallos.';
+        if (playerGoals >= 2) contribution = `Firmas ${playerGoals} goles y sales del campo pidiendo el balón del partido.`;
+        else if (playerGoals === 1 && playerAssists) contribution = 'Gol y asistencia. Andrés asiente desde la banda, que ya es bastante.';
+        else if (playerGoals === 1) contribution = 'Marcas un gol y lo celebras como si fuera la final de Copa.';
+        else if (playerAssists >= 2) contribution = `Repartes ${playerAssists} asistencias. Hoy sí has visto a tus compañeros.`;
+        else if (playerAssists === 1) contribution = 'Das una asistencia que deja el gol servido.';
+        else if ((eff.yellows || 0) > 0) contribution = 'No participas en los goles, pero dejas tu firma en forma de amarilla.';
+        else if ((eff.memes || 0) > 0) contribution = 'Tu aportación principal termina en la hemeroteca de Used Informa.';
+        return { opponent, venue, cup, usedGoals, rivalGoals, events, verdict, contribution, playerGoals, playerAssists, result: usedGoals > rivalGoals ? 'win' : usedGoals < rivalGoals ? 'loss' : 'draw', winAlreadyCounted: (eff.wins || 0) > 0 };
+      }
+      function queueMatchSimulation(e, eff, outcome) {
+        const result = inferOutcomeResult(outcome);
+        state.pendingMatch = (isMatchEvent(e) && result !== 'none') ? { event: e, effects: { ...eff }, outcome: { ...outcome }, phase: state.phase } : null;
+        state.matchShown = false;
+      }
+      function renderMatchSimulation() {
+        if (!state.pendingMatch) return false;
+        const m = buildMatchSimulation(state.pendingMatch);
+        if (!m) { state.pendingMatch = null; state.matchShown = false; return false }
+        if (m.result === 'win' && !m.winAlreadyCounted) {
+          state.stats.wins = (state.stats.wins || 0) + 1;
+          updateLiveStats({ wins: 1 });
+          m.addedWin = true;
+        }
+        const mvp = buildMatchMvp(m); m.mvp = mvp;
+        if (mvp.name === state.player.name) { state.stats.mvps = (state.stats.mvps || 0) + 1; updateLiveStats({ mvps: 1 }); m.playerMvp = true; }
+        state.matches.push(m); state.matchShown = true; state.lastMatch = m; state.lastMvp = mvp;
+        $('matchLabel').textContent = m.cup ? `Copa · ${['Cuartos', 'Semifinal', 'Final'][Math.max(0, state.cupRound - (m.usedGoals > m.rivalGoals ? 1 : 0))] || 'Eliminatoria'}` : 'Resultado de la jornada';
+        $('matchVenue').textContent = `📍 ${m.venue}`; $('opponentName').childNodes[0].nodeValue = m.opponent; $('matchScore').textContent = `${m.usedGoals} - ${m.rivalGoals}`; $('matchVerdict').textContent = m.verdict;
+        $('scorerList').innerHTML = m.events.length ? m.events.map(x => `<div class="scorerRow"><div class="scorerMinute">${x.minute}'</div><div><div class="scorerName">${x.name}</div><div class="scorerTeam">${x.team}</div></div><div>${x.team === 'USED' ? '⚽' : '🥅'}</div></div>`).join('') : '<div class="scorerRow"><div class="scorerMinute">FT</div><div><div class="scorerName">Partido sin goles</div><div class="scorerTeam">Sí, también puede pasar.</div></div><div>😴</div></div>';
+        $('matchContribution').innerHTML = `<b>Tu partido</b><span>${m.contribution}${m.addedWin ? '<br><strong>🏅 Victoria +1</strong>' : ''}${m.playerMvp ? '<br><strong>🌟 MVP +1</strong>' : ''}</span>`;
+        $('matchMvpInline').innerHTML = `<b>🏅 MVP del partido · ${mvp.rating.toFixed(1)}</b><span>${mvp.name}</span><small>${mvp.reason}</small>`;
+        show('matchSummary'); return true;
+      }
+      function buildMatchMvp(m) {
+        const scorerCounts = {};
+        m.events.filter(x => x.team === 'USED').forEach(x => scorerCounts[x.name] = (scorerCounts[x.name] || 0) + 1);
+        const playerScore = 6.1 + (m.playerGoals * 1.65) + (m.playerAssists * .9) + (m.result === 'win' ? .55 : m.result === 'draw' ? .15 : -.15);
+        const candidates = [];
+        candidates.push({ name: state.player.name, rating: playerScore, goals: m.playerGoals, assists: m.playerAssists, reason: m.playerGoals >= 2 ? `Firmó ${m.playerGoals} goles y decidió el partido.` : m.playerGoals && m.playerAssists ? 'Gol y asistencia en una actuación completísima.' : m.playerGoals ? 'Apareció en el momento importante y marcó.' : m.playerAssists ? 'Su pase dejó el gol prácticamente hecho.' : 'Trabajo silencioso y partido serio.' });
+        Object.entries(scorerCounts).filter(([name]) => name !== state.player.name).forEach(([name, goals]) => candidates.push({ name, rating: 6.35 + goals * 1.35 + Math.random() * .45, goals, assists: 0, reason: goals >= 2 ? `Doblete para sostener al CF Used.` : `Marcó y fue el jugador más decisivo del equipo.` }));
+        if (m.result !== 'loss' && m.rivalGoals <= 1) candidates.push({ name: 'Hugo Golet', rating: 7.05 + (m.rivalGoals === 0 ? .8 : .15) + Math.random() * .35, goals: 0, assists: 0, reason: m.rivalGoals === 0 ? 'Portería a cero y varias manos decisivas.' : 'Apareció cuando el rival más apretaba.' });
+        if (!candidates.length) candidates.push({ name: 'Andrés', rating: 6.8, goals: 0, assists: 0, reason: 'Cantó los cambios y consiguió que todos supieran más o menos dónde jugar.' });
+        candidates.sort((a, b) => b.rating - a.rating);
+        const top = candidates[0];
+        top.rating = Math.min(10, Math.max(5.5, Math.round(top.rating * 10) / 10));
+        return top;
+      }
+      function renderMatchMvp(m) {
+        const mvp = buildMatchMvp(m);
+        const stars = Math.max(1, Math.min(5, Math.round((mvp.rating - 5) * 1.05)));
+        $('mvpName').textContent = mvp.name;
+        $('mvpRating').textContent = mvp.rating.toFixed(1);
+        $('mvpStars').textContent = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+        $('mvpReason').textContent = mvp.reason;
+        $('mvpDetails').innerHTML = `<div class="mvpDetail">${mvp.goals}<small>Goles</small></div><div class="mvpDetail">${mvp.assists}<small>Asistencias</small></div><div class="mvpDetail">${m.result === 'win' ? 'Victoria' : m.result === 'draw' ? 'Empate' : 'Derrota'}<small>Resultado</small></div>`;
+        state.lastMvp = mvp;
+        show('matchMvp');
+      }
+      function continueAfterResult() {
+        if (state.pendingMatch && !state.matchShown) { renderMatchSimulation(); return }
+        state.pendingMatch = null; state.matchShown = false; next();
+      }
+
+      function choose(c, e) {
+        let outcome;
+        if (state.phase === 'cup') {
+          const successPool = c.outcomes.filter(o => o.advances === true);
+          const failPool = c.outcomes.filter(o => o.advances === false);
+          const baseChance = successPool[0]?.chance ?? 0.5;
+          const chance = clamp(baseChance + state.stats.quality * .02 + state.stats.luck * .015, 0.15, 0.9);
+          const advances = Math.random() < chance;
+          outcome = rnd(advances ? successPool : failPool);
+          if (!outcome) outcome = rnd(c.outcomes);
+          if (outcome.advances === true) state.cupRound++; else state.cupAlive = false;
+        } else {
+          outcome = rnd(c.outcomes);
+        }
+        const eff = { ...(outcome.effects || {}) };
+        apply(eff); updateLiveStats(eff); playSound(soundForEffects(eff, outcome));
+        state.history.push({ title: outcome.title, text: outcome.text, category: e.category }); queueMatchSimulation(e, eff, outcome);
+        $('resEmoji').textContent = state.phase === 'cup' && outcome.advances === false ? '😵' : (outcome.emoji || e.emoji);
+        $('resTitle').textContent = outcome.title; $('resText').textContent = outcome.text; renderChips(eff); show('result')
+      }
+      function next() { if (state.phase === 'cup') { if (!state.cupAlive || state.cupRound >= 3) { finish(); return } state.queue = [pickCup(state.cupRound)]; state.index = 0; render(); return } state.index++; render() }
+      function pickCup(round) {
+        const key = ['quarters', 'semis', 'final'][round];
+        const normal = CARDS.cup[key] || [];
+        const minis = (CARDS.minigames?.cup || []).filter(x => !x.round || x.round === key);
+        return rnd([...normal, ...minis]);
+      }
+      function startCup() { playSound('whistle'); setTimeout(() => playSound('cup'), 160); state.phase = 'cup'; state.cupAlive = true; state.cupRound = 0; state.queue = [pickCup(0)]; state.index = 0; $('bar').style.width = '87%'; show('phase') }
+      function cupLabel() {
+        if (state.cupRound === 3 && state.cupAlive) return 'Campeón';
+        if (!state.cupAlive && state.cupRound === 0) return 'Eliminado en cuartos';
+        if (!state.cupAlive && state.cupRound === 1) return 'Eliminado en semifinales';
+        if (!state.cupAlive && state.cupRound === 2) return 'Subcampeón';
+        return ['Cuartos', 'Semifinales', 'Final'][state.cupRound] || 'Cuartos';
+      }
+      function ending() {
+        const s = state.stats, cupChampion = state.cupRound === 3 && state.cupAlive;
+        const doubleChampion = cupChampion && s.wins >= 8;
+        if (doubleChampion && s.goals >= 12) return ['LEYENDA ABSOLUTA DEL CF USED', 'Liga, Copa y goles. Used Informa se queda sin adjetivos.', 'legend'];
+        if (cupChampion && s.memes >= 15) return ['CAMPEÓN CONTRA TODO PRONÓSTICO', 'Ganaste la Copa mientras protagonizabas media videoteca del grupo.', 'cup'];
+        if (cupChampion) return ['CAMPEÓN DE COPA', 'Hiciste historia cuando más importaba.', 'cup'];
+        if (s.goals >= 15) return ['BOTA DE ORO DEL USED', 'Yeray empieza a pedirte consejos. Algo no cuadra.', 'goals'];
+        if (s.assists >= 12) return ['EL SOCIO DE TODOS', 'No acaparaste titulares, pero todos marcaron gracias a ti.', 'assists'];
+        if (s.beers >= 22 && s.popularity >= 8) return ['MVP DEL TERCER TIEMPO', 'Tu mejor actuación llegó después del pitido final.', 'beers'];
+        if (s.memes >= 20) return ['REY DEL MEME', 'Used Informa necesita una edición especial solo con tus jugadas.', 'memes'];
+        if (s.yellows === 0 && s.quality >= 8) return ['CABALLERO DEL USED', 'Jugaste bien, no protestaste y nadie sabe quién eres realmente.', 'fairplay'];
+        if (s.yellows >= 6) return ['LATERAL SIN DERECHOS', 'Defendiste cada balón como si te debiera dinero.', 'yellows'];
+        if (s.andres >= 12) return ['HOMBRE DE CONFIANZA DE ANDRÉS', 'Llevaste petos, balones y hasta la paciencia del grupo.', 'andres'];
+        if (s.andres <= -6) return ['EL DOLOR DE CABEZA DE ANDRÉS', 'Cada martes prometiste llegar a tiempo. Nunca ocurrió.', 'antiandres'];
+        if (s.goals === 0 && s.assists === 0 && s.memes >= 8) return ['MEDIO CENTRO INOFENSIVO', 'Cero goles, cero asistencias y una temporada imposible de olvidar.', 'inoffensive'];
+        if (s.goals >= 10) return ['PICHICHI DE USED', 'Para qué meterla pudiendo fallarla… pero esta vez las metiste.', 'goals'];
+        if (s.assists >= 8) return ['MEDIO CENTRO CASI INOFENSIVO', 'No marcaste demasiado, pero hiciste buenos a otros.', 'assists'];
+        if (s.wins >= 7) return ['FICHAJE DEL AÑO', 'Cada vez que apareciste, el Used compitió. Más o menos.', 'wins'];
+        if (s.beers >= 16) return ['CAPITÁN DEL TERCER TIEMPO', 'Tu mejor posición siempre estuvo cerca de la barra.', 'beers'];
+        if (s.memes >= 13) return ['MEME OFICIAL DEL CF USED', 'Nadie recuerda el resultado, pero todos conservan tus vídeos.', 'memes'];
+        return ['UNO MÁS DEL CF USED', 'Exactamente lo que necesitaba el equipo.', 'normal'];
+      }
+      function calcCard() {
+        const s = state.stats;
+        const pac = clamp(55 + s.quality * 3 + s.luck * 2 - s.beers, 35, 99);
+        const sho = clamp(48 + s.goals * 3 + s.quality * 2, 35, 99);
+        const pas = clamp(48 + s.assists * 4 + s.andres, 35, 99);
+        const dri = clamp(50 + s.quality * 3 + s.popularity, 35, 99);
+        const def = clamp(42 + s.yellows * 3 + s.andres * 2, 30, 95);
+        const phy = clamp(58 + s.wins * 2 + s.quality - s.beers * .5, 35, 99);
+        const ovr = Math.round(clamp((pac + sho + pas + dri + def + phy) / 6, 45, 99));
+        return { ovr, pac: Math.round(pac), sho: Math.round(sho), pas: Math.round(pas), dri: Math.round(dri), def: Math.round(def), phy: Math.round(phy) };
+      }
+      function buildAwards() {
+        const s = state.stats, awards = [];
+        awards.push(s.goals >= 10 ? ['⚽', 'Bota de Oro interna', `${s.goals} goles; Yeray mira la clasificación dos veces.`] : ['🥅', 'Gol de la temporada', s.goals ? `${s.goals} goles y alguno fue queriendo.` : 'El premio queda desierto por causas evidentes.']);
+        awards.push(s.assists >= 8 ? ['🎯', 'Mejor asistente', `${s.assists} pases de gol. Por fin alguien la pasó.`] : ['🤝', 'Compañero útil', `${s.assists} asistencias y varios pases que casi cuentan.`]);
+        awards.push(s.memes >= 14 ? ['😂', 'Rey del meme', `${s.memes} momentos guardados en el grupo.`] : ['📹', 'Vídeo del año', `${s.memes} memes; temporada sorprendentemente digna.`]);
+        awards.push(s.beers >= 16 ? ['🍺', 'MVP del tercer tiempo', `${s.beers} cervezas contabilizadas oficialmente.`] : ['🥤', 'Premio hidratación', `${s.beers} cervezas. Andrés sospecha que faltan datos.`]);
+        awards.push(s.andres >= 8 ? ['❤️', 'Favorito de Andrés', 'Puede pedirte petos sin explicar nada.'] : s.andres <= -4 ? ['📱', 'Silenciado por Andrés', 'Tus mensajes ya no reciben doble check.'] : ['🤝', 'Relación institucional', `${clamp(50 + s.andres * 4, 0, 100)}% de confianza mutua.`]);
+        awards.push(state.cupRound === 3 && state.cupAlive ? ['🏆', 'Héroe de Copa', 'Apareciste cuando la Liga ya había terminado.'] : ['🏆', 'Aventura copera', cupLabel()]);
+        return awards;
+      }
+      function secretFinal(kind) {
+        const s = state.stats;
+        if (kind === 'legend') return ['🌟 FINAL SECRETO', 'Tu nombre aparece ya en la entrada de La Sonia.'];
+        if (state.cupRound === 3 && state.cupAlive && s.memes >= 18) return ['🤡 FINAL SECRETO', 'Campeón de Copa y meme del año en la misma temporada.'];
+        if (s.goals === 0 && s.assists === 0 && s.beers >= 20) return ['🍺 FINAL SECRETO', 'No aportaste fútbol, pero jamás faltó una ronda.'];
+        if (s.goals >= 15 && s.yellows === 0) return ['👑 FINAL SECRETO', 'Pichichi y limpio. Probablemente hubo un error en el acta.'];
+        return null;
+      }
+      function historyMatch(words) {
+        const list = state.history || [];
+        const hit = [...list].reverse().find(h => words.some(w => `${h.title || ''} ${h.text || ''} ${h.category || ''}`.toLowerCase().includes(w)));
+        return hit || null;
+      }
+      function dynamicNewspaper() {
+        const s = state.stats, cupChampion = state.cupRound === 3 && state.cupAlive;
+        const stories = [];
+        let kicker = 'Crónica de una temporada basada en hechos casi reales';
+        let headline = 'El CF Used completa otra temporada para el recuerdo';
+        let deck = 'Used Informa analiza veinte jornadas, la Copa y todo lo que ocurrió alrededor.';
+        let lead = `${state.player.name} terminó la temporada con ${Math.max(0, s.goals)} goles, ${Math.max(0, s.assists)} asistencias y ${Math.max(0, s.wins)} victorias. El balance deportivo fue discutido; el balance humano, imposible de auditar.`;
+
+        if (cupChampion) {
+          kicker = 'Edición histórica · Campeones de Copa';
+          headline = `${state.player.name} lleva al CF Used a levantar la Copa`;
+          deck = 'Una fase final improbable termina con celebración, mensajes al grupo y dudas sobre quién guardó los petos.';
+          lead = `El CF Used sobrevivió a cada eliminatoria y terminó levantando la Copa. ${state.player.name} aportó ${Math.max(0, s.goals)} goles y ${Math.max(0, s.assists)} asistencias durante una temporada que Used Informa ya considera patrimonio del pueblo.`;
+        } else if (s.goals >= 12) {
+          kicker = 'Especial goleadores';
+          headline = `${state.player.name} rompe todos los pronósticos a base de goles`;
+          deck = `Con ${s.goals} tantos, hasta Yeray empieza a mirar de reojo la clasificación interna.`;
+          lead = `Nadie esperaba semejante producción ofensiva cuando comenzó la temporada. Entre tiros razonables y decisiones difíciles de justificar, ${state.player.name} convirtió ${s.goals} goles y acabó siendo una de las grandes historias del año.`;
+        } else if (s.assists >= 10) {
+          kicker = 'El fútbol también consiste en pasarla';
+          headline = `${state.player.name}, el socio que todos querían cerca`;
+          deck = `Sus ${s.assists} asistencias demostraron que en el CF Used también se puede soltar el balón a tiempo.`;
+          lead = `Mientras otros perseguían el gol, ${state.player.name} construyó una temporada de servicio público. Terminó con ${s.assists} asistencias, varios pases que el acta no supo valorar y una reputación creciente dentro del vestuario.`;
+        } else if (s.memes >= 16) {
+          kicker = 'Especial archivo audiovisual';
+          headline = `${state.player.name} domina la temporada... en el grupo de WhatsApp`;
+          deck = `Los ${s.memes} memes generados superan con claridad cualquier otra estadística avanzada.`;
+          lead = `No todas las temporadas se recuerdan por los resultados. La de ${state.player.name} quedará archivada por fallos, resbalones, decisiones creativas y vídeos que continuarán circulando mucho después del último partido.`;
+        } else if (s.beers >= 18) {
+          kicker = 'Suplemento del tercer tiempo';
+          headline = `${state.player.name} firma su mejor año lejos del césped`;
+          deck = `La estadística oficial recoge ${s.beers} cervezas y ninguna intención de bajar el ritmo.`;
+          lead = `En el campo hubo luces y sombras. Fuera de él, absoluta regularidad. ${state.player.name} se convirtió en uno de los nombres propios del tercer tiempo y fortaleció su relación con el vestuario ronda a ronda.`;
+        } else if (s.yellows >= 5) {
+          kicker = 'Crónica disciplinaria';
+          headline = `${state.player.name} convierte cada balón dividido en un asunto personal`;
+          deck = `Las ${s.yellows} amarillas obligan a Used Informa a abrir una investigación interna.`;
+          lead = `La intensidad nunca estuvo en duda. ${state.player.name} acabó con ${s.yellows} amarillas, varias conversaciones con los árbitros y la sensación de que cualquier entrada podía convertirse en acontecimiento municipal.`;
+        } else if (s.andres >= 10) {
+          kicker = 'El hombre de confianza';
+          headline = `Andrés encuentra por fin a alguien que responde en el grupo`;
+          deck = `${state.player.name} termina el año con petos, balones y credibilidad institucional.`;
+          lead = `La relación con Andrés fue una de las grandes claves de la temporada. ${state.player.name} apareció cuando tocaba, colaboró en la logística y alcanzó un nivel de confianza reservado a muy pocos miembros del CF Used.`;
+        } else if (s.andres <= -5) {
+          kicker = 'Crisis institucional';
+          headline = `Andrés pide explicaciones tras otra temporada imprevisible`;
+          deck = `La relación con ${state.player.name} termina bajo mínimos y con varios mensajes sin responder.`;
+          lead = `Horarios, petos, cambios y decisiones sobre el césped fueron deteriorando la relación. Used Informa no descarta una reunión, un audio de cinco minutos o ambas cosas al mismo tiempo.`;
+        }
+
+        const yeray = historyMatch(['yeray']);
+        const hugo = historyMatch(['hugo', 'portería', 'portero']);
+        const andres = historyMatch(['andrés', 'andres', 'míster', 'mister']);
+        const juana = historyMatch(['juana', 'peluca']);
+        const victor = historyMatch(['pingüino', 'pinguino', 'barriga']);
+        const bar = historyMatch(['sonia', 'richard', 'cerveza', 'ronda']);
+        const rare = historyMatch(['ovni', 'cristiano', 'champions', 'portería a portería']);
+
+        stories.push(s.wins >= 8
+          ? ['El Used compite hasta el final', `${s.wins} victorias sostienen una temporada que mantuvo al equipo en la pelea.`]
+          : ['Resultados irregulares', `${s.wins} victorias y numerosos partidos resueltos por métodos todavía sin aclarar.`]);
+        stories.push(s.goals + s.assists >= 12
+          ? ['Participación decisiva', `${s.goals + s.assists} acciones de gol colocan a ${state.player.name} entre los jugadores más influyentes.`]
+          : ['Trabajo invisible', `Pocos números, pero abundantes espacios abiertos, apoyos y carreras que nadie registró.`]);
+        if (rare) stories.push(['La noticia imposible', rare.text || rare.title]);
+        else if (juana) stories.push(['Juana vuelve a escena', juana.text || juana.title]);
+        else if (victor) stories.push(['El vuelo del pingüino', victor.text || victor.title]);
+        else if (yeray) stories.push(['Yeray no negocia el disparo', yeray.text || yeray.title]);
+        else if (hugo) stories.push(['Hugo sostiene al equipo', hugo.text || hugo.title]);
+        else if (bar) stories.push(['El tercer tiempo responde', bar.text || bar.title]);
+        else stories.push(['Temporada sin explicación', `El vestuario coincide en que el resultado final pudo ser mejor, peor o exactamente el esperable.`]);
+
+        let quote = '“Para qué meterla pudiendo fallarla.”';
+        let quoteBy = 'Frase oficial de la temporada';
+        if (andres) { quote = `“${(andres.title || 'Hoy no voy a gritar').replace(/[“”"]/g, '')}”`; quoteBy = 'Andrés, desde la banda'; }
+        else if (s.goals >= 12) { quote = '“Hoy me entraba todo. Mañana ya veremos.”'; quoteBy = state.player.name; }
+        else if (s.memes >= 16) { quote = '“Borrad el vídeo del grupo, por favor.”'; quoteBy = state.player.name; }
+        else if (s.beers >= 18) { quote = '“La última y nos vamos.”'; quoteBy = 'Declaración sin confirmar'; }
+
+        return { kicker, headline, deck, lead, stories: stories.slice(0, 3), quote, quoteBy };
+      }
+      function finish() {
+        playSound(state.cupRound === 3 && state.cupAlive ? 'cup' : 'whistle');
+        const s = state.stats, [end, desc, kind] = ending();
+        const cupChampion = state.cupRound === 3 && state.cupAlive;
+        const paper = dynamicNewspaper();
+        $('paperKicker').textContent = paper.kicker; $('headline').textContent = paper.headline; $('deck').textContent = paper.deck; $('leadStory').textContent = paper.lead;
+        $('newsGrid').innerHTML = paper.stories.map(([title, text]) => `<article class="newsItem"><b>${title}</b><span>${text}</span></article>`).join('');
+        $('paperQuote').innerHTML = `${paper.quote}<strong>${paper.quoteBy}</strong>`;
+        const data = [['⚽ Goles', Math.max(0, s.goals)], ['🅰️ Asistencias', Math.max(0, s.assists)], ['🏅 Victorias', Math.max(0, s.wins)], ['🌟 MVPs', Math.max(0, s.mvps || 0)], ['🟨 Amarillas', Math.max(0, s.yellows)], ['🍺 Cervezas', Math.max(0, s.beers)], ['😂 Memes', Math.max(0, s.memes)], ['❤️ Andrés', clamp(50 + s.andres * 4, 0, 100) + '%'], ['🏆 Copa', cupLabel()]];
+        $('stats').innerHTML = data.map(([a, b]) => `<div class="stat">${a}<span>${b}</span></div>`).join('');
+        $('ending').textContent = end;
+        $('awards').innerHTML = buildAwards().map(([icon, title, text]) => `<div class="award"><div class="awardIcon">${icon}</div><b>${title}</b><span>${text}</span></div>`).join('');
+        const c = calcCard(); registerFinishedSeason(end, c.ovr); $('overall').textContent = c.ovr; $('cardPlayer').textContent = `${state.player.name} #${state.player.number}`;
+        $('attributes').innerHTML = [['PAC', c.pac], ['TIR', c.sho], ['PAS', c.pas], ['REG', c.dri], ['DEF', c.def], ['FÍS', c.phy]].map(([k, v]) => `<div class="attribute">${v}<small>${k}</small></div>`).join('');
+        $('seasonRating').textContent = `Valoración Used Informa: ${c.ovr}/99 · ${cupLabel()}`;
+        const secret = secretFinal(kind); $('secretEnding').innerHTML = secret ? `<div class="secretEnding"><strong>${secret[0]}</strong>${secret[1]}</div>` : '';
+        awardPlayerCard(); checkAchievements(true); $('bar').style.width = '100%'; show('final');
+      }
+      function summary() { const s = state.stats, c = calcCard(); return `⚽ CF USED · UNA TEMPORADA\n${state.player.name} #${state.player.number} · OVR ${c.ovr}\n⚽ ${Math.max(0, s.goals)} goles · 🅰️ ${Math.max(0, s.assists)} asistencias · 🏅 ${Math.max(0, s.wins)} victorias · 🌟 ${Math.max(0, s.mvps || 0)} MVPs\n🟨 ${Math.max(0, s.yellows)} · 🍺 ${Math.max(0, s.beers)} · 😂 ${Math.max(0, s.memes)}\n🏆 ${$('ending').textContent} · Copa: ${cupLabel()}` }
+      $('collectionBtn').onclick = renderCollection;
+      $('closeCollection').onclick = () => show('start');
+      $('achievementsBtn').onclick = renderAchievements;
+      $('closeAchievements').onclick = () => show('start');
+      $('playerAlbumBtn').onclick = renderPlayerAlbum;
+      $('closePlayerAlbum').onclick = () => show('start');
+      $('historyBtn').onclick = renderHistoryStats;
+      $('closeHistory').onclick = () => show('start');
+      updateAchievementCount();
+      updatePlayerAlbumCount();
+      updateHistoryCount();
+      $('startBtn').disabled = true; $('startBtn').textContent = 'Cargando cartas…'; $('startBtn').onclick = () => show('create'); document.querySelectorAll('.trait').forEach(b => b.onclick = () => { document.querySelectorAll('.trait').forEach(x => x.classList.remove('selected')); b.classList.add('selected') }); $('signBtn').onclick = () => { state = initial(); state.player.name = $('name').value.trim() || 'Jugador'; state.player.number = clamp(parseInt($('number').value || 7), 1, 99); state.player.trait = document.querySelector('.trait.selected').dataset.trait; traitBonus(); state.queue = buildQueue(); $('playerTag').textContent = `#${state.player.number} ${state.player.name}`; showLiveStats(true); render() }; $('nextBtn').onclick = continueAfterResult; $('matchNextBtn').onclick = () => { state.pendingMatch = null; state.matchShown = false; state.lastMatch = null; next() }; $('cupBtn').onclick = render; $('againBtn').onclick = () => { state = initial(); $('bar').style.width = '0'; $('playerTag').textContent = '⚽'; showLiveStats(false); show('start') }; $('copyBtn').onclick = async () => { try { await navigator.clipboard.writeText(summary()) } catch (e) { const t = document.createElement('textarea'); t.value = summary(); document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove() } $('toast').classList.add('show'); setTimeout(() => $('toast').classList.remove('show'), 1800) };
+      $('soundBtn').onclick = () => { sound.enabled = !sound.enabled; localStorage.setItem(SOUND_KEY, sound.enabled ? '1' : '0'); updateSoundButton(); if (sound.enabled) { ensureAudio(); playSound('goal') } };
+      document.addEventListener('pointerdown', ev => { if (sound.enabled && ev.target.closest('button,.choice,.trait')) playSound('tap') }, { passive: true });
+      updateSoundButton();
+      loadCards();
+    })();
+  </script>
+</body>
+</html>
