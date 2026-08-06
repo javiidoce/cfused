@@ -3127,10 +3127,13 @@
       function buildMatchSimulation(payload) {
         const { event: e, effects: eff = {}, outcome = {} } = payload;
         const opponent = inferOpponent(e, outcome), venue = inferVenue(e, outcome), cup = payload.phase === 'cup';
-        const playerGoals = Math.max(0, eff.goals || 0), playerAssists = Math.max(0, eff.assists || 0);
+        const playerGoals = Math.max(0, Number(eff.goals) || 0), playerAssists = Math.max(0, Number(eff.assists) || 0);
+        const explicitScorers = (Array.isArray(outcome.matchScorers) ? outcome.matchScorers : [])
+          .map(name => name === '__PLAYER__' ? state.player.name : name)
+          .filter(Boolean);
         const indicatedResult = inferOutcomeResult(outcome);
         const strength = clamp(.43 + (state.stats.quality || 0) * .018 + (state.stats.luck || 0) * .012 + (playerGoals * .12) + (playerAssists * .05), .2, .88);
-        let usedGoals = Math.max(playerGoals, Math.floor(Math.random() * 4));
+        let usedGoals = Math.max(playerGoals, explicitScorers.length, Math.floor(Math.random() * 4));
         let rivalGoals = Math.floor(Math.random() * 4);
         if (indicatedResult === 'win') usedGoals = Math.max(usedGoals, rivalGoals + 1, playerGoals, 1);
         else if (indicatedResult === 'loss') rivalGoals = Math.max(rivalGoals, usedGoals + 1, 1);
@@ -3138,8 +3141,9 @@
         else return null;
         if (cup && usedGoals === rivalGoals) { if (indicatedResult === 'loss') rivalGoals++; else usedGoals++ }
         usedGoals = clamp(usedGoals, 0, 7); rivalGoals = clamp(rivalGoals, 0, 7);
-        const usedScorers = [];
-        for (let i = 0; i < playerGoals && usedScorers.length < usedGoals; i++)usedScorers.push(state.player.name);
+        const usedScorers = [...explicitScorers];
+        const playerAlreadyListed = usedScorers.filter(name => name === state.player.name).length;
+        for (let i = playerAlreadyListed; i < playerGoals && usedScorers.length < usedGoals; i++)usedScorers.push(state.player.name);
         while (usedScorers.length < usedGoals) {
           const weighted = Math.random() < .42 ? 'Yeray Lausín' : Math.random() < .28 ? 'Miguel Ángel Blanco' : rnd(USED_SCORERS);
           usedScorers.push(weighted);
