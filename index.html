@@ -2755,26 +2755,26 @@
       function updateSoundButton() { const b = $('soundBtn'); if (!b) return; b.textContent = sound.enabled ? '🔊' : '🔇'; b.classList.toggle('off', !sound.enabled); b.setAttribute('aria-label', sound.enabled ? 'Silenciar sonido' : 'Activar sonido'); b.title = sound.enabled ? 'Silenciar sonido' : 'Activar sonido'; }
       const PLAYER_CARDS_KEY = 'cfused_player_cards_v1';
       const PLAYER_CARDS = [
-        { id: 'yeray', image: 'images/players/yeray.jpg', name: 'Yeray Lausín', pos: 'DEL', icon: '🐐', rarity: 'gold', base: 88, stats: [92, 94, 72, 90, 35, 82] },
-        { id: 'miki', image: 'images/players/miguel-angel.jpg', name: 'Miguel Ángel', pos: 'DEL', icon: '⚽', rarity: 'gold', base: 84, stats: [80, 88, 76, 81, 40, 79] },
-        { id: 'hugo', image: 'images/players/hugo.jpg', name: 'Hugo Golet', pos: 'POR', icon: '🧤', rarity: 'special', base: 85, stats: [55, 42, 78, 60, 91, 86] },
-        { id: 'juan_hat', image: 'images/players/juan-hattrick.jpg', name: 'Juan Hat-trick', pos: 'DEL', icon: '🎩', rarity: 'special', base: 87, stats: [79, 91, 74, 82, 45, 76] },
-        { id: 'juana', image: 'images/players/juana.jpg', name: 'Juana', pos: 'MCO', icon: '💇', rarity: 'legendary', base: 99, stats: [99, 99, 99, 99, 70, 99] },
-        { id: 'andres', image: 'images/players/andres.jpg', name: 'Andrés Míster', pos: 'MÍS', icon: '📢', rarity: 'special', base: 86, stats: [52, 45, 96, 60, 88, 93] },
-        { id: 'victor', image: 'images/players/victor.jpg', name: 'Víctor Pingüino', pos: 'DEF', icon: '🐧', rarity: 'silver', base: 75, stats: [68, 55, 70, 64, 79, 88] },
-        { id: 'raul', image: 'images/players/raul.jpg', name: 'Raúl Golet', pos: 'MC', icon: '😤', rarity: 'silver', base: 76, stats: [72, 67, 75, 73, 70, 82] },
-        { id: 'javi', image: 'images/players/javi.jpg', name: 'Javi Melendo', pos: 'MC', icon: '🕳️', rarity: 'silver', base: 74, stats: [70, 38, 79, 68, 73, 77] },
-        { id: 'chesus', image: 'images/players/chesus.jpg', name: 'Chesus Oroz', pos: 'DEL', icon: '🔥', rarity: 'gold', base: 79, stats: [77, 82, 71, 76, 47, 74] },
-        { id: 'pablo_m', image: 'images/players/pablo-munoz.jpg', name: 'Pablo Muñoz', pos: 'DEL', icon: '🎯', rarity: 'gold', base: 79, stats: [75, 82, 72, 74, 48, 76] },
-        { id: 'ander', image: 'images/players/ander.jpg', name: 'Ander Sánchez', pos: 'MC', icon: '🟡', rarity: 'silver', base: 77, stats: [76, 74, 78, 75, 68, 79] },
-        { id: 'diego', image: 'images/players/diego.jpg', name: 'Diego Gimeno', pos: 'DEF', icon: '🟨', rarity: 'silver', base: 77, stats: [73, 72, 75, 70, 79, 84] },
-        { id: 'juan_g', image: 'images/players/juan-gimeno.jpg', name: 'Juan Gimeno', pos: 'MC', icon: '🟢', rarity: 'silver', base: 77, stats: [75, 73, 77, 74, 70, 78] },
-        { id: 'juan_o', image: 'images/players/juan-oroz.jpg', name: 'Juan Oroz', pos: 'MC', icon: '🎭', rarity: 'silver', base: 77, stats: [74, 74, 76, 75, 69, 78] },
-        { id: 'jose', image: 'images/players/jose-angel.jpg', name: 'Jose Ángel', pos: 'DEL', icon: '⚡', rarity: 'silver', base: 77, stats: [78, 76, 71, 75, 55, 76] },
-        { id: 'oscar', image: 'images/players/oscar.jpg', name: 'Óscar Aibar', pos: 'DEF', icon: '🧱', rarity: 'silver', base: 74, stats: [66, 56, 70, 65, 78, 80] },
-        { id: 'ruben', image: 'images/players/ruben.jpg', name: 'Rubén Romero', pos: 'MC', icon: '🔧', rarity: 'silver', base: 73, stats: [69, 58, 73, 68, 72, 77] },
-        { id: 'miguel_m', image: 'images/players/miguel-melendo.jpg', name: 'Miguel Melendo', pos: '???', icon: '👻', rarity: 'legendary', base: 90, stats: [1, 1, 1, 1, 1, 1] },
-        { id: 'antonio', image: 'images/players/antonio.jpg', name: 'Antonio Velarte', pos: 'DEF', icon: '🛡️', rarity: 'silver', base: 72, stats: [65, 50, 69, 64, 76, 78] }
+        { id: 'yeray', image: 'images/players/yeray.jpg', name: 'Yeray Lausín', pos: 'DEL', icon: '🐐', rarity: 'gold', base: 88, stats: [92, 94, 77, 90, 75, 82] },
+        { id: 'miki', image: 'images/players/miguel.png', name: 'Miguelito', pos: 'DEL', icon: '⚽', rarity: 'gold', base: 81, stats: [80, 88, 76, 81, 40, 79] },
+        { id: 'hugo', image: 'images/players/hugo.png', name: 'Hugo Golet', pos: 'POR', icon: '🧤', rarity: 'gold', base: 85, stats: [55, 42, 78, 60, 91, 86] },
+        { id: 'juan_hat', image: 'images/players/juan-hattrick.jpg', name: 'Juan Hat-trick', pos: 'DEL', icon: '🎩', rarity: 'special', base: 99, stats: [85, 99, 83, 87, 45, 89] },
+        { id: 'juana', image: 'images/players/juana.png', name: 'Juana', pos: 'MCO', icon: '💇', rarity: 'legendary', base: 99, stats: [99, 99, 99, 99, 70, 99] },
+        { id: 'andres', image: 'images/players/andres.jpg', name: 'Andrés Míster', pos: 'DEL', icon: '📢', rarity: 'special', base: 86, stats: [62, 92, 76, 80, 74, 85] },
+        { id: 'victor', image: 'images/players/victor.png', name: 'Víctor Pingüino', pos: 'MC', icon: '🐧', rarity: 'legendary', base: 69, stats: [69, 69, 69, 69, 69, 69] },
+        { id: 'raul', image: 'images/players/raul.jpg', name: 'Raúl Golet', pos: 'DEF', icon: '😤', rarity: 'gold', base: 83, stats: [82, 77, 75, 82, 80, 82] },
+        { id: 'javi', image: 'images/players/javi.png', name: 'Javi Melendo', pos: 'MC', icon: '🕳️', rarity: 'gold', base: 78, stats: [80, 65, 83, 75, 75, 70] },
+        { id: 'chesus', image: 'images/players/chesus.jpg', name: 'Chesu Oroz', pos: 'MC', icon: '🔥', rarity: 'gold', base: 81, stats: [86, 82, 81, 76, 47, 74] },
+        { id: 'pablo_m', image: 'images/players/pablo-munoz.jpg', name: 'Pablo Muñoz', pos: 'DEL', icon: '🎯', rarity: 'gold', base: 80, stats: [83, 82, 72, 74, 48, 76] },
+        { id: 'ander', image: 'images/players/ander.jpg', name: 'Ander Sánchez', pos: 'DEL', icon: '🟡', rarity: 'gold', base: 80, stats: [81, 84, 78, 75, 68, 79] },
+        { id: 'diego', image: 'images/players/diego.jpg', name: 'Diego Gimeno', pos: 'DEF', icon: '🟨', rarity: 'gold', base: 82, stats: [83, 62, 85, 82, 86, 82] },
+        { id: 'juan_g', image: 'images/players/juan-gimeno.jpg', name: 'Juan Gimeno', pos: 'DEL', icon: '🟢', rarity: 'gold', base: 79, stats: [75, 83, 77, 74, 50, 83] },
+        { id: 'juan_o', image: 'images/players/juan-oroz.jpg', name: 'Juan Oroz', pos: 'MC', icon: '🎭', rarity: 'gold', base: 81, stats: [84, 74, 86, 85, 69, 78] },
+        { id: 'jose', image: 'images/players/jose-angel.jpg', name: 'Jose Ángel', pos: 'DEL', icon: '⚡', rarity: 'gold', base: 79, stats: [78, 86, 71, 75, 55, 76] },
+        { id: 'oscar', image: 'images/players/oscar.gif', name: 'Óscar Aibar', pos: 'MC', icon: '🧱', rarity: 'gold', base: 86, stats: [86, 78, 89, 86, 81, 83] },
+        { id: 'ruben', image: 'images/players/ruben.jpg', name: 'Rubén Romero', pos: 'DEF', icon: '🔧', rarity: 'gold', base: 80, stats: [79, 68, 81, 74, 84, 85] },
+        { id: 'miguel_m', image: 'images/players/miguel-melendo.jpg', name: 'Miguel Melendo', pos: '???', icon: '👻', rarity: 'special', base: 1, stats: [1, 1, 1, 1, 1, 1] },
+        { id: 'pablo_l', image: 'images/players/pablo-liarte.jpg', name: 'Pablo Liarte', pos: 'DEF', icon: '🦄', rarity: 'gold', base: 87, stats: [85, 72, 86, 78, 90, 88] },
       ];
       function getPlayerAlbum() { try { return JSON.parse(localStorage.getItem(PLAYER_CARDS_KEY) || '{}') } catch (e) { return {} } }
       function savePlayerAlbum(v) { localStorage.setItem(PLAYER_CARDS_KEY, JSON.stringify(v)); updatePlayerAlbumCount() }
@@ -3426,6 +3426,63 @@
       document.addEventListener('pointerdown', ev => { if (sound.enabled && ev.target.closest('button,.choice,.trait')) playSound('tap') }, { passive: true });
       updateSoundButton();
       loadCards();
+      // ---- Consola de debug (solo desarrollo) ----
+      window.debug = {
+        unlockAchievements() {
+          saveAchievements(ACHIEVEMENTS.map(a => a.id));
+          updateAchievementCount();
+          console.log('✅ Todos los logros desbloqueados');
+        },
+        unlockCollection() {
+          const ids = allSpecialCards().map(c => c.id);
+          saveCollection(ids);
+          updateCollectionCount();
+          console.log(`✅ Colección completa (${ids.length} cartas)`);
+        },
+        unlockPlayerAlbum(copies = 1) {
+          const album = {};
+          PLAYER_CARDS.forEach(c => album[c.id] = copies);
+          savePlayerAlbum(album);
+          console.log('✅ Álbum de cromos completo');
+        },
+        unlockAll() {
+          this.unlockAchievements();
+          this.unlockCollection();
+          this.unlockPlayerAlbum();
+        },
+        addStats(obj = {}) {
+          Object.entries(obj).forEach(([k, v]) => state.stats[k] = (state.stats[k] || 0) + v);
+          updateLiveStats(obj);
+          console.log('📊 Stats actuales:', state.stats);
+        },
+        setStats(obj = {}) {
+          Object.entries(obj).forEach(([k, v]) => state.stats[k] = v);
+          updateLiveStats(obj);
+          console.log('📊 Stats actuales:', state.stats);
+        },
+        skipToCup() {
+          state.index = state.queue.length; // fuerza salto a la fase de Copa
+          render();
+        },
+        winCup() {
+          state.phase = 'cup';
+          state.cupAlive = true;
+          state.cupRound = 3;
+          finish();
+        },
+        resetHistory() {
+          localStorage.removeItem(HISTORY_KEY);
+          updateHistoryCount();
+          console.log('🗑️ Historial borrado');
+        },
+        resetAll() {
+          [ACHIEVEMENT_KEY, COLLECTION_KEY, PLAYER_CARDS_KEY, HISTORY_KEY].forEach(k => localStorage.removeItem(k));
+          updateAchievementCount(); updateCollectionCount(); updatePlayerAlbumCount(); updateHistoryCount();
+          console.log('🗑️ Todo el progreso guardado borrado');
+        },
+        state() { console.log(state); return state; }
+      };
+      console.log('%c🛠️ Debug disponible: window.debug', 'color:#0b5a37;font-weight:bold');
     })();
   </script>
 </body>
