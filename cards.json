@@ -1,5 +1,5 @@
 {
-  "version": "0.15",
+  "version": "0.16",
   "league": [
     {
       "id": "convocatoria",
@@ -5518,6 +5518,1417 @@
           ]
         }
       ]
+    },
+    {
+      "id": "caris_estilo",
+      "category": "Liga",
+      "emoji": "🎭",
+      "title": "Los Caris juegan raro",
+      "texts": [
+        "Los Caris salen con un sistema que nadie del CF Used consigue entender. Ni ellos parecen tenerlo muy claro."
+      ],
+      "choices": [
+        {
+          "label": "🧠 Intentar descifrarlos",
+          "outcomes": [
+            {
+              "title": "Lectura correcta",
+              "text": "Encuentras el patrón a los diez minutos y aprovechas el hueco.",
+              "effects": {
+                "assists": 1,
+                "wins": 1,
+                "quality": 2
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "No hay patrón",
+              "text": "Resulta que no tenían sistema. Simplemente corrían.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Ir a lo básico",
+          "outcomes": [
+            {
+              "title": "El fútbol de siempre gana",
+              "text": "Mientras ellos improvisan, vosotros marcáis de la forma más simple del mundo.",
+              "effects": {
+                "goals": 1,
+                "wins": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Contagio táctico",
+              "text": "Acabáis jugando tan raro como ellos y el partido se vuelve ilegible.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "😂 Preguntarles qué sistema es",
+          "outcomes": [
+            {
+              "title": "Respuesta honesta",
+              "text": "Uno de ellos contesta: “ni idea, hoy no ha venido el que sabe”.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se lo toman a mal",
+              "text": "Deciden demostrar que sí tenían plan y os complican el partido.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Los Caris"
+    },
+    {
+      "id": "olympique_nombre",
+      "category": "Liga",
+      "emoji": "🇫🇷",
+      "title": "Contra el Olympique Zaragoza",
+      "texts": [
+        "El nombre suena a Champions, pero el campo es el de siempre y el árbitro llega en bici."
+      ],
+      "choices": [
+        {
+          "label": "😎 Jugar como si fuera una final europea",
+          "outcomes": [
+            {
+              "title": "Ambientazo",
+              "text": "Os venís arriba con la broma y termináis jugando en serio de verdad.",
+              "effects": {
+                "wins": 1,
+                "quality": 2,
+                "popularity": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Demasiado teatro",
+              "text": "Perdéis diez minutos con la coreografía de entrada al campo.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🎤 Cantar un himno inventado",
+          "outcomes": [
+            {
+              "title": "Se hace viral en el grupo",
+              "text": "Alguien lo graba y Used Informa lo publica al día siguiente.",
+              "effects": {
+                "memes": 1,
+                "popularity": 2
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "El árbitro corta el rollo",
+              "text": "Pide que empecéis ya, que se hace tarde.",
+              "effects": {
+                "memes": 1,
+                "andres": -1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Jugar en serio y ya",
+          "outcomes": [
+            {
+              "title": "Fútbol sin adornos",
+              "text": "Ganáis sin necesidad de bromas sobre el nombre.",
+              "effects": {
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Nombre engañoso",
+              "text": "Resulta que juegan mejor de lo que suena el nombre.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Olympique Zaragoza"
+    },
+    {
+      "id": "bodegas_javier",
+      "category": "Liga",
+      "emoji": "🍷",
+      "title": "Bodegas Javier FC huele a fiesta",
+      "texts": [
+        "El rival llega con una nevera portátil junto al banquillo. Antes de empezar ya circula un sacacorchos."
+      ],
+      "choices": [
+        {
+          "label": "🍺 Proponer intercambio post-partido",
+          "outcomes": [
+            {
+              "title": "Diplomacia líquida",
+              "text": "Cierras un acuerdo: el que gane, invita. Motivación instantánea.",
+              "effects": {
+                "wins": 1,
+                "beers": 2,
+                "popularity": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Se lo toman muy en serio",
+              "text": "Ellos ganan y os recuerdan el trato durante todo el partido siguiente.",
+              "effects": {
+                "memes": 1,
+                "beers": 1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🧠 Aprovechar que van relajados",
+          "outcomes": [
+            {
+              "title": "Ritmo used",
+              "text": "Van más pendientes de la nevera que de defender.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "No tan relajados",
+              "text": "Solo la nevera va relajada; ellos aprietan igual.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "😂 Pedir que os guarden un hueco",
+          "outcomes": [
+            {
+              "title": "Invitación aceptada",
+              "text": "Terminan el partido celebrando con vosotros, ganéis o perdáis.",
+              "effects": {
+                "beers": 3,
+                "popularity": 2
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Solo era para ellos",
+              "text": "La nevera desaparece justo cuando pita el árbitro.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Bodegas Javier FC"
+    },
+    {
+      "id": "instafoodzgz_fotos",
+      "category": "Liga",
+      "emoji": "📸",
+      "title": "Instafoodzgz lo graba todo",
+      "texts": [
+        "El rival lleva un móvil en un trípode junto a la banda. Cada jugada, buena o mala, termina en su cuenta."
+      ],
+      "choices": [
+        {
+          "label": "😎 Buscar salir bien en la foto",
+          "outcomes": [
+            {
+              "title": "Contenido de calidad",
+              "text": "Marcas justo delante de la cámara. El vídeo dura toda la semana.",
+              "effects": {
+                "goals": 1,
+                "popularity": 2
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Toma fallida",
+              "text": "Resbalas justo cuando enfocan hacia ti.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🙈 Ignorar la cámara",
+          "outcomes": [
+            {
+              "title": "Concentración pura",
+              "text": "Juegas tu mejor partido sin mirar ni una vez al trípode.",
+              "effects": {
+                "quality": 2,
+                "wins": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Aparece igual",
+              "text": "El plano general te capta discutiendo con el árbitro.",
+              "effects": {
+                "memes": 1,
+                "yellows": 1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🍔 Preguntar si suben también comida",
+          "outcomes": [
+            {
+              "title": "Cuenta de restaurantes",
+              "text": "Resulta que sí, y prometen etiquetar el bar de después.",
+              "effects": {
+                "beers": 2,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Silencio incómodo",
+              "text": "No entienden muy bien la pregunta y siguen grabando.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Instafoodzgz"
+    },
+    {
+      "id": "parandas_lento",
+      "category": "Liga",
+      "emoji": "🐢",
+      "title": "Parandas FC juega al ritmo de su nombre",
+      "texts": [
+        "El rival controla, mira, respira y vuelve a mirar. El partido lleva quince minutos y aún no ha pasado nada."
+      ],
+      "choices": [
+        {
+          "label": "⚡ Acelerar el ritmo",
+          "outcomes": [
+            {
+              "title": "Contraste efectivo",
+              "text": "Los pillas a media velocidad y marcas en una transición rápida.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Prisas contagiosas",
+              "text": "Te precipitas y pierdes el balón en campo propio.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🧘 Adaptarte a su ritmo",
+          "outcomes": [
+            {
+              "title": "Paciencia recompensada",
+              "text": "Jugáis pausado, encontráis el hueco perfecto y anotáis sin prisa.",
+              "effects": {
+                "assists": 1,
+                "wins": 1,
+                "quality": 2
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Demasiada calma",
+              "text": "El partido se vuelve tan lento que Andrés empieza a mirar el móvil.",
+              "effects": {
+                "memes": 1,
+                "andres": -1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "😂 Preguntar si van a algún sitio",
+          "outcomes": [
+            {
+              "title": "No, gracias por preguntar",
+              "text": "Uno contesta muy despacio que no tienen prisa.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se ofenden lentamente",
+              "text": "Tardan un minuto entero en decidir que la broma no les hace gracia.",
+              "effects": {
+                "memes": 1,
+                "luck": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Parandas FC"
+    },
+    {
+      "id": "artistic_project",
+      "category": "Liga",
+      "emoji": "🎨",
+      "title": "The Artistic Project F.C hace fútbol conceptual",
+      "texts": [
+        "Cada pase parece tener un significado que solo ellos entienden. Uno remata de espaldas “por composición”."
+      ],
+      "choices": [
+        {
+          "label": "🖼️ Seguirles el rollo artístico",
+          "outcomes": [
+            {
+              "title": "Obra maestra accidental",
+              "text": "Intentas algo raro y, contra todo pronóstico, entra.",
+              "effects": {
+                "goals": 1,
+                "memes": 1,
+                "wins": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Arte abstracto fallido",
+              "text": "Nadie entiende qué intentabas hacer, ni siquiera tú.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Fútbol funcional, sin arte",
+          "outcomes": [
+            {
+              "title": "Lo práctico gana",
+              "text": "Mientras ellos componen, tú simplemente metes el balón dentro.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Subestimas la performance",
+              "text": "Resulta que también saben defender, no solo posar.",
+              "effects": {
+                "memes": 1,
+                "luck": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "😂 Pedir que os expliquen la jugada",
+          "outcomes": [
+            {
+              "title": "Explicación de veinte minutos",
+              "text": "El discurso dura más que el resto del partido.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "No hace falta explicación",
+              "text": "Uno responde: “si lo tuviera que explicar, habría fallado”.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "The Artistic Project F.C"
+    },
+    {
+      "id": "adidas_fc_marca",
+      "category": "Liga",
+      "emoji": "👟",
+      "title": "adidas FC va todo conjuntado",
+      "texts": [
+        "El rival sale con equipación, calcetines y botas exactamente a juego. El CF Used lleva tres camisetas distintas."
+      ],
+      "choices": [
+        {
+          "label": "😎 Presumir de contraste",
+          "outcomes": [
+            {
+              "title": "Estilo Used",
+              "text": "Ganáis con menos marketing y más fútbol.",
+              "effects": {
+                "wins": 1,
+                "popularity": 2
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "El uniforme no basta",
+              "text": "Se demuestra que ir conjuntado también ayuda a correr en la misma dirección.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "📸 Pedir foto de equipos",
+          "outcomes": [
+            {
+              "title": "Contraste perfecto para Used Informa",
+              "text": "La foto queda para portada: patrocinador oficial vs bolsa de deporte.",
+              "effects": {
+                "popularity": 2,
+                "memes": 1
+              },
+              "matchResult": "none"
+            },
+            {
+              "title": "Se niegan educadamente",
+              "text": "Dicen que prefieren mantener la imagen de marca.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "none"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Ir directo al partido",
+          "outcomes": [
+            {
+              "title": "El marcador no lleva logo",
+              "text": "Marcas y demuestras que no hace falta ir a juego.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Calidad de fábrica",
+              "text": "Juegan sorprendentemente bien, marca aparte.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "adidas FC"
+    },
+    {
+      "id": "wisskleta_bici",
+      "category": "Liga",
+      "emoji": "🚲",
+      "title": "Wisskleta FC llega en bici",
+      "texts": [
+        "El equipo rival aparca ocho bicicletas junto al campo. Van sobrados de piernas antes de empezar."
+      ],
+      "choices": [
+        {
+          "label": "🏃 Aprovechar que vienen cansados",
+          "outcomes": [
+            {
+              "title": "Piernas cargadas",
+              "text": "Notas que les cuesta el último tramo y aprovecháis para marcar.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "quality": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Sorprendentemente frescos",
+              "text": "Resulta que el ciclismo les viene de fábula para el fútbol.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🚲 Preguntar por la ruta",
+          "outcomes": [
+            {
+              "title": "Charla previa",
+              "text": "Os cuentan la ruta y empezáis el partido con buen rollo.",
+              "effects": {
+                "popularity": 1,
+                "andres": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se alarga la charla",
+              "text": "Casi llegáis tarde al saque inicial por hablar de bicis.",
+              "effects": {
+                "memes": 1,
+                "andres": -1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "😂 Proponer ir en bici la próxima vez",
+          "outcomes": [
+            {
+              "title": "Idea rechazada por unanimidad",
+              "text": "Nadie del CF Used tiene bici ni ganas de tenerla.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "none"
+            },
+            {
+              "title": "Alguien se lo toma en serio",
+              "text": "Empieza a mirar precios de bicicletas de segunda mano en el grupo.",
+              "effects": {
+                "memes": 2
+              },
+              "matchResult": "none"
+            }
+          ]
+        }
+      ],
+      "matchOpponent": "Wisskleta FC"
+    },
+    {
+      "id": "perro_campo",
+      "category": "Liga",
+      "emoji": "🐕",
+      "title": "Un perro se cuela en el campo",
+      "texts": [
+        "En pleno ataque, un perro suelto entra al campo y empieza a perseguir el balón mejor que media defensa."
+      ],
+      "choices": [
+        {
+          "label": "🏃 Intentar echarlo",
+          "outcomes": [
+            {
+              "title": "Misión cumplida",
+              "text": "Lo sacas del campo entre aplausos y seguís el partido con normalidad.",
+              "effects": {
+                "andres": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "El perro no colabora",
+              "text": "Se lleva el balón hacia la banda contraria y hay que ir a por los dos.",
+              "effects": {
+                "memes": 1,
+                "luck": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🐾 Dejarle jugar un rato",
+          "outcomes": [
+            {
+              "title": "Fichaje canino",
+              "text": "El perro roba un balón al rival y durante diez segundos parece el mejor jugador del campo.",
+              "effects": {
+                "memes": 2,
+                "popularity": 2
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se aburre rápido",
+              "text": "Se marcha solo hacia la grada como si nada hubiera pasado.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Aprovechar el despiste rival",
+          "outcomes": [
+            {
+              "title": "Distracción perfecta",
+              "text": "Mientras todos miran al perro, tú te vas solo y marcas.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "memes": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "También te distraes tú",
+              "text": "Te quedas mirando al perro y pierdes el balón.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "movil_suena",
+      "category": "Liga",
+      "emoji": "📱",
+      "title": "Suena un móvil en pleno ataque",
+      "texts": [
+        "En mitad de una jugada de gol se escucha clarísimo un tono de llamada saliendo de algún bolsillo del banquillo."
+      ],
+      "choices": [
+        {
+          "label": "🙄 Ignorarlo y seguir jugando",
+          "outcomes": [
+            {
+              "title": "Concentración profesional",
+              "text": "El ruido no os afecta y termináis la jugada con gol.",
+              "effects": {
+                "goals": 1,
+                "wins": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Distracción colectiva",
+              "text": "Todo el equipo mira hacia el banquillo un segundo de más.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "😂 Preguntar de quién es",
+          "outcomes": [
+            {
+              "title": "Nadie lo reconoce",
+              "text": "Tres personas del banquillo comprueban su móvil al mismo tiempo.",
+              "effects": {
+                "memes": 2,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Era de Andrés",
+              "text": "Se disculpa y jura que lo había puesto en silencio.",
+              "effects": {
+                "memes": 1,
+                "andres": -1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "📵 Pedir que apaguen los móviles",
+          "outcomes": [
+            {
+              "title": "Norma aceptada",
+              "text": "Desde hoy hay protocolo oficial de silencio en el banquillo.",
+              "effects": {
+                "andres": 2,
+                "quality": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Nadie hace caso",
+              "text": "Diez minutos después vuelve a sonar otro móvil distinto.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pantalon_roto",
+      "category": "Liga",
+      "emoji": "🩳",
+      "title": "Se te rompe el pantalón",
+      "texts": [
+        "Vas a hacer una entrada y se escucha un “rasss” inconfundible. El pantalón ya no es lo que era."
+      ],
+      "choices": [
+        {
+          "label": "🙈 Seguir jugando como si nada",
+          "outcomes": [
+            {
+              "title": "El espectáculo continúa",
+              "text": "Terminas el partido con el roto y nadie dice nada por respeto.",
+              "effects": {
+                "popularity": 1,
+                "memes": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se hace más grande",
+              "text": "Cada esprint amplía un poco más el problema.",
+              "effects": {
+                "memes": 2
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "🔄 Pedir cambio de ropa",
+          "outcomes": [
+            {
+              "title": "Solución de emergencia",
+              "text": "Alguien lleva un pantalón de repuesto tres tallas distinto y sirve igual.",
+              "effects": {
+                "andres": 1,
+                "memes": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "No hay repuesto",
+              "text": "Tienes que aguantar así hasta el final del partido.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "😂 Convertirlo en tu marca personal",
+          "outcomes": [
+            {
+              "title": "Nueva estética",
+              "text": "A partir de ahora es “tu look de partido importante”.",
+              "effects": {
+                "memes": 2,
+                "popularity": 2
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Andrés no lo aprueba",
+              "text": "Te pide amablemente que la próxima semana vayas con ropa entera.",
+              "effects": {
+                "andres": -1,
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "avispa_partido",
+      "category": "Liga",
+      "emoji": "🐝",
+      "title": "Una avispa se une al partido",
+      "texts": [
+        "Aparece una avispa que decide que el círculo central es su nuevo territorio. Nadie quiere acercarse."
+      ],
+      "choices": [
+        {
+          "label": "🏃 Espantarla con la camiseta",
+          "outcomes": [
+            {
+              "title": "Técnica efectiva",
+              "text": "Se va volando y el partido puede continuar sin bajas.",
+              "effects": {
+                "andres": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Se enfada más",
+              "text": "Ahora la avispa parece tenerte manía a ti personalmente.",
+              "effects": {
+                "memes": 1,
+                "luck": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🧍 Quedarse quieto y esperar",
+          "outcomes": [
+            {
+              "title": "Se aburre y se va",
+              "text": "Después de un rato de tensión, decide buscar otro sitio.",
+              "effects": {
+                "quality": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Elige quedarse cerca",
+              "text": "Jugáis diez minutos con medio equipo esquivándola.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Seguir jugando pase lo que pase",
+          "outcomes": [
+            {
+              "title": "Nervios de acero",
+              "text": "Ignoras totalmente a la avispa y das una asistencia perfecta.",
+              "effects": {
+                "assists": 1,
+                "wins": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Mal cálculo",
+              "text": "Justo cuando controlas el balón, decide pasar volando a tu lado.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lluvia_sorpresa",
+      "category": "Liga",
+      "emoji": "🌧️",
+      "title": "Empieza a llover a mitad de partido",
+      "texts": [
+        "Sin previo aviso empieza a caer una buena. El campo se convierte en tobogán en cuestión de minutos."
+      ],
+      "choices": [
+        {
+          "label": "⚡ Aprovechar que resbala todo",
+          "outcomes": [
+            {
+              "title": "Deslizamiento con premio",
+              "text": "El balón te llega mojado, resbalas hacia él y sale un gol imposible.",
+              "effects": {
+                "goals": 1,
+                "memes": 1,
+                "wins": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "El barro manda",
+              "text": "Acabas más en el suelo que de pie durante media parte.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🧊 Jugar con más cuidado",
+          "outcomes": [
+            {
+              "title": "Prudencia recompensada",
+              "text": "Sois los únicos que no os caéis ni una vez en todo el partido.",
+              "effects": {
+                "quality": 2,
+                "andres": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Demasiado cuidado",
+              "text": "Vais tan a lo seguro que apenas generáis peligro.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "😂 Proponer suspender el partido",
+          "outcomes": [
+            {
+              "title": "El árbitro se ríe",
+              "text": "Contesta que esto no es nada comparado con otros martes.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Sorprendentemente acepta",
+              "text": "Suspende el partido y todos corréis a resguardaros riendo.",
+              "effects": {
+                "memes": 2,
+                "andres": 1
+              },
+              "matchResult": "none"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cumple_partido",
+      "category": "Liga",
+      "emoji": "🎂",
+      "title": "Alguien cumple años hoy",
+      "texts": [
+        "Antes del saque inicial os enteráis de que uno del equipo cumple años justo hoy. Alguien propone hacer algo especial."
+      ],
+      "choices": [
+        {
+          "label": "🎁 Buscarle todos los balones",
+          "outcomes": [
+            {
+              "title": "Regalo de cumpleaños",
+              "text": "Le hacéis marcar un gol por todo lo alto y lo celebra como nunca.",
+              "effects": {
+                "assists": 1,
+                "wins": 1,
+                "popularity": 2
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Demasiada presión",
+              "text": "Con tanta insistencia falla las tres ocasiones que le llegan.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🎵 Cantarle el cumpleaños en el descanso",
+          "outcomes": [
+            {
+              "title": "Momento entrañable",
+              "text": "Hasta el árbitro se une un momento antes de reanudar.",
+              "effects": {
+                "popularity": 2,
+                "andres": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Le da vergüenza",
+              "text": "Se pone rojo y pide que sigáis con el partido cuanto antes.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "🍺 Prometerle la ronda después",
+          "outcomes": [
+            {
+              "title": "Motivación líquida",
+              "text": "Juega su mejor partido de la temporada pensando en la cerveza de después.",
+              "effects": {
+                "wins": 1,
+                "beers": 2,
+                "quality": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Ya sabe cómo va a acabar la noche",
+              "text": "Deja de concentrarse en el partido y empieza a planear el Richard.",
+              "effects": {
+                "memes": 1,
+                "beers": 1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boda_cerca",
+      "category": "Liga",
+      "emoji": "💒",
+      "title": "Hay una boda al lado del campo",
+      "texts": [
+        "En el jardín pegado al campo están celebrando una boda. Cada vez que el balón sale, cae encima del photocall."
+      ],
+      "choices": [
+        {
+          "label": "🙈 Evitar mandar el balón hacia allí",
+          "outcomes": [
+            {
+              "title": "Diplomacia de barrio",
+              "text": "Jugáis con más cuidado y ni siquiera os miran mal.",
+              "effects": {
+                "quality": 1,
+                "andres": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Imposible evitarlo del todo",
+              "text": "Un despeje aterriza junto a la tarta y hay que ir a pedir perdón.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🎉 Saludar a los novios al pasar",
+          "outcomes": [
+            {
+              "title": "Buena relación vecinal",
+              "text": "Los novios os invitan a un par de canapés en el descanso.",
+              "effects": {
+                "popularity": 2,
+                "beers": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "El padre de la novia no está para bromas",
+              "text": "Os mira con cara de pocos amigos y volvéis rápido al campo.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "⚽ Rematar hacia allí a propósito",
+          "outcomes": [
+            {
+              "title": "Aplauso inesperado",
+              "text": "El gol entra justo cuando empieza el brindis y todos aplauden a la vez.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "memes": 1,
+                "popularity": 2
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Mala idea",
+              "text": "El balón cae en la mesa de los regalos. Andrés os manda calmaros.",
+              "effects": {
+                "memes": 1,
+                "andres": -2
+              },
+              "matchResult": "loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pito_roto",
+      "category": "Liga",
+      "emoji": "🔇",
+      "title": "Al árbitro se le rompe el pito",
+      "texts": [
+        "El árbitro sopla y no sale ningún sonido. Se queda mirando el silbato como si le hubiera traicionado personalmente."
+      ],
+      "choices": [
+        {
+          "label": "😂 Ofrecerle ayuda técnica",
+          "outcomes": [
+            {
+              "title": "Reparación de vestuario",
+              "text": "Entre todos consiguen desatascarlo y el partido sigue con normalidad.",
+              "effects": {
+                "popularity": 1,
+                "andres": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "No hay solución",
+              "text": "Termina pitando con la voz el resto del partido, cada vez más ronco.",
+              "effects": {
+                "memes": 2
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "🏃 Aprovechar el caos para seguir jugando",
+          "outcomes": [
+            {
+              "title": "Ventaja aprovechada",
+              "text": "Mientras se soluciona el problema, encontráis un hueco y marcáis.",
+              "effects": {
+                "goals": 1,
+                "wins": 1,
+                "memes": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "No cuenta",
+              "text": "El árbitro, sin pito pero con autoridad, anula la jugada a gritos.",
+              "effects": {
+                "memes": 1,
+                "andres": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "📢 Prestarle un megáfono",
+          "outcomes": [
+            {
+              "title": "Pitidos con eco",
+              "text": "El resto del partido cada falta suena como un anuncio del ayuntamiento.",
+              "effects": {
+                "memes": 2,
+                "andres": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "El árbitro rechaza el favor",
+              "text": "Prefiere seguir gritando “¡falta!” con toda su alma.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ojeador_rumor",
+      "category": "Liga",
+      "emoji": "🕵️",
+      "title": "Corre el rumor de que hay un ojeador",
+      "texts": [
+        "Alguien en el banquillo asegura que el señor con chaqueta al fondo del campo es un ojeador. Nadie sabe de dónde ha salido el rumor."
+      ],
+      "choices": [
+        {
+          "label": "😎 Sacar tu mejor repertorio",
+          "outcomes": [
+            {
+              "title": "Actuación de gala",
+              "text": "Juegas como si te fuera la vida en ello y sale un partidazo.",
+              "effects": {
+                "goals": 1,
+                "quality": 2,
+                "wins": 1
+              },
+              "matchResult": "win",
+              "matchScorers": [
+                "__PLAYER__"
+              ]
+            },
+            {
+              "title": "Presión contraproducente",
+              "text": "Con tantas ganas de lucirte, fallas hasta los controles más simples.",
+              "effects": {
+                "memes": 1,
+                "quality": -1
+              },
+              "matchResult": "loss"
+            }
+          ]
+        },
+        {
+          "label": "🙄 Ignorar el rumor por completo",
+          "outcomes": [
+            {
+              "title": "Cabeza fría",
+              "text": "Juegas tu partido normal, que resulta ser mejor que cuando te pones nervioso.",
+              "effects": {
+                "quality": 1,
+                "assists": 1,
+                "wins": 1
+              },
+              "matchResult": "win"
+            },
+            {
+              "title": "Nadie más se lo cree",
+              "text": "Resulta que solo estaba esperando a alguien y no tenía nada que ver con fútbol.",
+              "effects": {
+                "memes": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        },
+        {
+          "label": "🏃 Ir a preguntarle directamente",
+          "outcomes": [
+            {
+              "title": "Confirmación decepcionante",
+              "text": "Resulta ser el padre de un jugador rival esperando el coche.",
+              "effects": {
+                "memes": 2,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            },
+            {
+              "title": "Respuesta ambigua",
+              "text": "Sonríe y no contesta nada, lo que alimenta el rumor una semana más.",
+              "effects": {
+                "memes": 1,
+                "popularity": 1
+              },
+              "matchResult": "draw"
+            }
+          ]
+        }
+      ]
     }
   ],
   "special": [
@@ -6722,6 +8133,168 @@
           }
         ],
         "matchOpponent": "Val de San Martín"
+      },
+      {
+        "id": "cuartos_fersa",
+        "category": "Copa · Cuartos",
+        "emoji": "🏆",
+        "title": "Cuartos contra Fersa FC",
+        "texts": [
+          "Fersa llega a la Copa como el equipo revelación. Empate a uno y quedan diez minutos."
+        ],
+        "choices": [
+          {
+            "label": "🧱 Cerrar atrás y esperar la ocasión",
+            "outcomes": [
+              {
+                "title": "A semifinales",
+                "text": "Aguantáis el resultado y llega el gol en un contragolpe.",
+                "effects": {
+                  "wins": 1,
+                  "quality": 1
+                },
+                "chance": 0.65,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Eliminados en cuartos",
+                "text": "Fersa aprieta hasta el final y encaja el CF Used en el descuento.",
+                "effects": {
+                  "memes": 1,
+                  "andres": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "🔥 Ir a por el partido",
+            "outcomes": [
+              {
+                "title": "Valentía premiada",
+                "text": "Os vais arriba y marcáis el segundo antes del pitido final.",
+                "effects": {
+                  "goals": 1,
+                  "wins": 1,
+                  "quality": 1
+                },
+                "chance": 0.5,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "Se castiga el riesgo",
+                "text": "Dejáis espacios atrás y Fersa remonta en la última jugada.",
+                "effects": {
+                  "memes": 1,
+                  "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "😂 Recordar que “el golaverage nos salva”",
+            "outcomes": [
+              {
+                "title": "La superstición funciona",
+                "text": "Nadie sabe si es verdad, pero el equipo se relaja y juega mejor.",
+                "effects": {
+                  "wins": 1,
+                  "memes": 1
+                },
+                "chance": 0.55,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "El golaverage no os salva esta vez",
+                "text": "Fersa marca el definitivo y elimina al CF Used.",
+                "effects": {
+                  "memes": 1,
+                  "luck": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ],
+        "matchOpponent": "Fersa FC"
+      },
+      {
+        "id": "cuartos_crypto",
+        "category": "Copa · Cuartos",
+        "emoji": "🏆",
+        "title": "Cuartos contra CRYPTO PUNKS",
+        "texts": [
+          "Nadie esperaba a CRYPTO PUNKS tan lejos en la Copa. Van perdiendo por uno y no se rinden."
+        ],
+        "choices": [
+          {
+            "label": "🎯 Buscar el segundo cuanto antes",
+            "outcomes": [
+              {
+                "title": "Sentencia temprana",
+                "text": "Marcáis pronto y el partido queda resuelto.",
+                "effects": {
+                  "goals": 1,
+                  "wins": 1,
+                  "quality": 1
+                },
+                "chance": 0.7,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "Se complica solo",
+                "text": "Fallas la ocasión y el partido se queda abierto hasta el final.",
+                "effects": {
+                  "memes": 1,
+                  "quality": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "🧘 Controlar el partido sin arriesgar",
+            "outcomes": [
+              {
+                "title": "Gestión perfecta",
+                "text": "Manejáis el balón y el reloj hasta que pita el árbitro.",
+                "effects": {
+                  "wins": 1,
+                  "andres": 1
+                },
+                "chance": 0.6,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Se les escapa el control",
+                "text": "CRYPTO PUNKS empata en el único córner que tienen.",
+                "effects": {
+                  "memes": 1,
+                  "luck": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ],
+        "matchOpponent": "CRYPTO PUNKS FC"
       }
     ],
     "semis": [
@@ -6915,6 +8488,165 @@
             ]
           }
         ]
+      },
+      {
+        "id": "semis_lesion",
+        "category": "Copa · Semifinal",
+        "emoji": "🩹",
+        "title": "Semifinal con bajas",
+        "texts": [
+          "Dos titulares se han lesionado durante la semana. Salís con el equipo más corto de la temporada."
+        ],
+        "choices": [
+          {
+            "label": "🧩 Reinventar el sistema sobre la marcha",
+            "outcomes": [
+              {
+                "title": "El plan B funciona",
+                "text": "Nadie sabía dónde jugaba cada uno, ni siquiera el rival.",
+                "effects": {
+                  "wins": 1,
+                  "quality": 1,
+                  "memes": 1
+                },
+                "chance": 0.5,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "El experimento no cuaja",
+                "text": "Sin piezas clave, el equipo no encuentra su sitio y cae eliminado.",
+                "effects": {
+                  "memes": 1,
+                  "andres": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "💪 Dar un paso adelante tú",
+            "outcomes": [
+              {
+                "title": "Momento de responsabilidad",
+                "text": "Asumes más peso que nunca y sale la mejor versión tuya.",
+                "effects": {
+                  "goals": 1,
+                  "assists": 1,
+                  "wins": 1,
+                  "quality": 1
+                },
+                "chance": 0.55,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "Demasiado peso",
+                "text": "Intentas hacerlo todo tú solo y el equipo se queda descolocado.",
+                "effects": {
+                  "memes": 1,
+                  "quality": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "😂 Pedirle a Andrés que se calce las botas",
+            "outcomes": [
+              {
+                "title": "Refuerzo de última hora",
+                "text": "Andrés entra, no toca un balón limpio en todo el partido, pero da moral.",
+                "effects": {
+                  "andres": 3,
+                  "wins": 1
+                },
+                "chance": 0.48,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Se nota la falta de rodaje",
+                "text": "Andrés hace lo que puede, pero no basta contra un rival completo.",
+                "effects": {
+                  "memes": 2,
+                  "andres": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "semis_publico",
+        "category": "Copa · Semifinal",
+        "emoji": "📣",
+        "title": "Semifinal con más gente de la habitual",
+        "texts": [
+          "Corrió la voz de la Copa y hoy hay más gente viendo el partido que en toda la Liga junta."
+        ],
+        "choices": [
+          {
+            "label": "😎 Disfrutar del ambiente",
+            "outcomes": [
+              {
+                "title": "Se crecen con el público",
+                "text": "El equipo juega como si fuera una final de verdad y os metéis en la definitiva.",
+                "effects": {
+                  "wins": 1,
+                  "popularity": 2,
+                  "quality": 1
+                },
+                "chance": 0.58,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Demasiada euforia",
+                "text": "Con tanto jaleo perdéis la concentración en el momento clave.",
+                "effects": {
+                  "memes": 1,
+                  "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "🎯 Bloquear el ruido y centraros",
+            "outcomes": [
+              {
+                "title": "Cabeza fría, público caliente",
+                "text": "Ignoráis la presión de la grada y hacéis vuestro partido de siempre.",
+                "effects": {
+                  "wins": 1,
+                  "quality": 2
+                },
+                "chance": 0.6,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "No es tan fácil ignorarlo",
+                "text": "El nerviosismo se cuela igual y el rival aprovecha un fallo.",
+                "effects": {
+                  "memes": 1,
+                  "luck": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ]
       }
     ],
     "final": [
@@ -7002,6 +8734,174 @@
                 "effects": {
                   "memes": 1,
                   "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "final_penaltis",
+        "category": "Copa · Final",
+        "emoji": "🥅",
+        "title": "Final de Copa a penaltis",
+        "texts": [
+          "Empate tras la prórroga improvisada. La final se decide desde los once metros."
+        ],
+        "choices": [
+          {
+            "label": "1️⃣ Pedir tirar el primero",
+            "outcomes": [
+              {
+                "title": "CAMPEONES DE COPA",
+                "text": "Marcas el primero, el portero para dos rivales y el CF Used levanta la Copa.",
+                "effects": {
+                  "goals": 1,
+                  "wins": 1,
+                  "popularity": 3
+                },
+                "chance": 0.58,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "La final se escapa en penaltis",
+                "text": "Fallas el primero y el peso resulta demasiado. Subcampeones.",
+                "effects": {
+                  "memes": 1,
+                  "luck": -1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "5️⃣ Guardarte para el último",
+            "outcomes": [
+              {
+                "title": "CAMPEONES DE COPA",
+                "text": "Llega tu turno con todo en juego y no falla ni por asomo.",
+                "effects": {
+                  "goals": 1,
+                  "wins": 1,
+                  "quality": 1,
+                  "popularity": 3
+                },
+                "chance": 0.55,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "El peso del último lanzamiento",
+                "text": "El portero adivina el lado y la Copa se queda a las puertas.",
+                "effects": {
+                  "memes": 1,
+                  "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "🧤 Confiar en Hugo bajo palos",
+            "outcomes": [
+              {
+                "title": "CAMPEONES DE COPA",
+                "text": "Hugo detiene dos lanzamientos y se convierte en héroe de la final.",
+                "effects": {
+                  "wins": 1,
+                  "popularity": 4
+                },
+                "chance": 0.52,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Hoy no llega",
+                "text": "El rival marca todos sus lanzamientos y la Copa se escapa.",
+                "effects": {
+                  "memes": 1,
+                  "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "final_remontada",
+        "category": "Copa · Final",
+        "emoji": "⚡",
+        "title": "Final de Copa: remontada in extremis",
+        "texts": [
+          "Perdéis por uno a falta de tres minutos. La grada, la que hay, ya empieza a resignarse."
+        ],
+        "choices": [
+          {
+            "label": "🔥 Volcarse en ataque total",
+            "outcomes": [
+              {
+                "title": "CAMPEONES DE COPA",
+                "text": "Empatáis en el descuento y ganáis en la última jugada del partido. Se acaba el mundo en el campo.",
+                "effects": {
+                  "goals": 2,
+                  "wins": 1,
+                  "memes": 1,
+                  "popularity": 3
+                },
+                "chance": 0.45,
+                "advances": true,
+                "matchResult": "win",
+                "matchScorers": [
+                  "__PLAYER__"
+                ]
+              },
+              {
+                "title": "No llega el milagro",
+                "text": "Lo intentáis todo, pero el rival resiste y se lleva la Copa.",
+                "effects": {
+                  "memes": 1,
+                  "popularity": 1
+                },
+                "advances": false,
+                "matchResult": "loss"
+              }
+            ]
+          },
+          {
+            "label": "🧠 Jugada trabajada hasta el final",
+            "outcomes": [
+              {
+                "title": "CAMPEONES DE COPA",
+                "text": "En vez de bombardear el área, tejéis la jugada perfecta para forzar la prórroga y luego ganar.",
+                "effects": {
+                  "goals": 1,
+                  "assists": 1,
+                  "wins": 1,
+                  "quality": 1
+                },
+                "chance": 0.5,
+                "advances": true,
+                "matchResult": "win"
+              },
+              {
+                "title": "Se acaba el tiempo",
+                "text": "La jugada estaba bien pensada, pero el árbitro pita el final antes de rematarla.",
+                "effects": {
+                  "memes": 1,
+                  "luck": -1
                 },
                 "advances": false,
                 "matchResult": "loss"
